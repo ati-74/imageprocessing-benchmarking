@@ -25,8 +25,8 @@ for i=1:Num_files
     
     for j=1:life_history
     cell_length(end+1)=CellA{1,j}.cellLength(1);
-    %convert to radian
-    cell_orientation(end+1)=deg2rad(CellA{1,j}.coord.orientation);
+    %degree
+    cell_orientation(end+1)=CellA{1,j}.coord.orientation;
     end
     %mean length
     meanLength=mean(cell_length);
