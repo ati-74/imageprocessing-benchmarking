@@ -5,7 +5,7 @@ def lineage_based_features(df):
     unique_lables = list(set(df["lable"].values))
     result_dict = {
         "lable": [],
-        "Number of division": [],
+        "NumberOfDivision": [],
     }
 
     for lable in unique_lables:

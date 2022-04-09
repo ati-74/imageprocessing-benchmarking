@@ -15,8 +15,8 @@ def AverageGrowthRate(divisionLength, birthLength, LifeHistoryLength, interval_T
 
 def Average_Velocity(pos1, pos2, LifeHistoryLength, interval_Time):
 
-    x1 = np.sqrt(pos1["x_center"] ** 2 + pos1["y_center"] ** 2)
-    x2 = np.sqrt(pos2["x_center"] ** 2 + pos2["y_center"] ** 2)
+    x1 = np.sqrt(pos1["Center_X"] ** 2 + pos1["Center_Y"] ** 2)
+    x2 = np.sqrt(pos2["Center_X"] ** 2 + pos2["Center_Y"] ** 2)
 
     average_velocity = round((x2 - x1) / (LifeHistoryLength * interval_Time), 3)
 
@@ -43,8 +43,8 @@ def life_history_based_features(df, interval_Time):
         meanLength = np.mean(df_lifeHistory["MajorAxisLength"].values)
 
         # Average Velocity
-        pos1 = df_lifeHistory.iloc[0][["x_center", "y_center"]]
-        pos2 = df_lifeHistory.iloc[-1][["x_center", "y_center"]]
+        pos1 = df_lifeHistory.iloc[0][["Center_X", "Center_Y"]]
+        pos2 = df_lifeHistory.iloc[-1][["Center_X", "Center_Y"]]
         average_velocity = Average_Velocity(
             pos1, pos2, LifeHistoryLength, interval_Time
         )

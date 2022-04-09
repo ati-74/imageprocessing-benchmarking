@@ -80,7 +80,7 @@ end
 T = table(transpose(StepNum),transpose(CellId),transpose(x_center),transpose(y_center),transpose(Orientation),transpose(MajorAxisLength),transpose(lable),transpose(parent));
 T2=table(transpose(1:length(transpose(num_cells))),transpose(num_cells));
 %add column name
-T.Properties.VariableNames={'TimeStep','CellId','x_center','y_center','Orientation','MajorAxisLength','lable','parent'};
+T.Properties.VariableNames={'TimeStep','CellId','Center_X','Center_Y','Orientation','MajorAxisLength','lable','parent'};
 T2.Properties.VariableNames={'StepNumber','NumberOfCells'};
 
 % remove unwanted rows (MajorAxisLength = 0)

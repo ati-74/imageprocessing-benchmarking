@@ -21,7 +21,7 @@ def plot(
 
     fig, ax = plt.subplots()
     a_heights, a_bins = np.histogram(df1, bins=num_bins, range=(min_val, max_val))
-    if dataset != "Mono Culture" or feature not in ["AverageVelocity", "AverageLength"]:
+    if dataset != "Mono Culture" or feature not in ["AverageVelocity", "AverageLength","Orientation"]:
         b_heights, b_bins = np.histogram(df2, bins=num_bins, range=(min_val, max_val))
     c_heights, c_bins = np.histogram(df3, bins=num_bins, range=(min_val, max_val))
     d_heights, d_bins = np.histogram(df4, bins=num_bins, range=(min_val, max_val))
@@ -30,7 +30,7 @@ def plot(
 
     ax.bar(a_bins[:-1], a_heights, width=width, facecolor="red", label=Tools_name[0])
 
-    if dataset != "Mono Culture" or feature not in ["AverageVelocity", "AverageLength"]:
+    if dataset != "Mono Culture" or feature not in ["AverageVelocity", "AverageLength","Orientation"]:
         ax.bar(
             b_bins[:-1] + width,
             b_heights,
@@ -74,7 +74,7 @@ def plot(
     plt.suptitle(plot_title + "\n(" + dataset + ")", fontsize=14, fontweight="bold")
     plt.legend(loc="upper right")
     # plt.show()
-    fig.savefig("../plots/" + plot_title + "_" + dataset + ".png", dpi=300)
+    fig.savefig("../plots/" + plot_title + "_" + dataset + ".png", dpi=1200)
     # close fig
     fig.clf()
     plt.close()
@@ -95,15 +95,18 @@ def life_history_based_distribution(
                 + end_of_file_name
                 + ".csv"
             )
-            DeLTA_csv_file = (
-                main_directories["DeLTA_directory"]
-                + dataset
-                + "/post-processing/results/"
-                + Tools_name[1]
-                + "_"
-                + end_of_file_name
-                + ".csv"
-            )
+            if dataset != "Mono Culture" or (
+                feature not in ["AverageVelocity", "AverageLength"]
+            ):
+                DeLTA_csv_file = (
+                    main_directories["DeLTA_directory"]
+                    + dataset
+                    + "/post-processing/results/"
+                    + Tools_name[1]
+                    + "_"
+                    + end_of_file_name
+                    + ".csv"
+                )
             FAST_csv_file = (
                 main_directories["FAST_directory"]
                 + dataset
@@ -135,9 +138,12 @@ def life_history_based_distribution(
             df_cp = pd.read_csv(CP_csv_file, usecols=[str(feature)])
             # remove nan values
             df_cp = df_cp.loc[df_cp[str(feature)].notnull()]
-            df_delta = pd.read_csv(DeLTA_csv_file, usecols=[str(feature)])
-            # remove nan values
-            df_delta = df_delta.loc[df_delta[str(feature)].notnull()]
+            if dataset != "Mono Culture" or (
+                feature not in ["AverageVelocity", "AverageLength"]
+            ):
+                df_delta = pd.read_csv(DeLTA_csv_file, usecols=[str(feature)])
+                # remove nan values
+                df_delta = df_delta.loc[df_delta[str(feature)].notnull()]
             df_fast = pd.read_csv(FAST_csv_file, usecols=[str(feature)])
             # remove nan values
             df_fast = df_fast.loc[df_fast[str(feature)].notnull()]
@@ -165,7 +171,7 @@ def life_history_based_distribution(
                 )
                 plot(
                     df_cp,
-                    df_delta,
+                    '',
                     df_fast,
                     df_oufti,
                     df_supersegger,
@@ -409,15 +415,16 @@ def bac_feature_distribution(
                 + end_of_file_name
                 + ".csv"
             )
-            DeLTA_csv_file = (
-                main_directories["DeLTA_directory"]
-                + dataset
-                + "/post-processing/results/"
-                + Tools_name[1]
-                + "_"
-                + end_of_file_name
-                + ".csv"
-            )
+            if dataset != "Mono Culture" or (feature not in ["Orientation"]):
+                DeLTA_csv_file = (
+                    main_directories["DeLTA_directory"]
+                    + dataset
+                    + "/post-processing/results/"
+                    + Tools_name[1]
+                    + "_"
+                    + end_of_file_name
+                    + ".csv"
+                )
             FAST_csv_file = (
                 main_directories["FAST_directory"]
                 + dataset
@@ -449,9 +456,10 @@ def bac_feature_distribution(
             df_cp = pd.read_csv(CP_csv_file, usecols=[str(feature)])
             # remove nan values
             df_cp = df_cp.loc[df_cp[str(feature)].notnull()]
-            df_delta = pd.read_csv(DeLTA_csv_file, usecols=[str(feature)])
-            # remove nan values
-            df_delta = df_delta.loc[df_delta[str(feature)].notnull()]
+            if dataset != "Mono Culture" or (feature not in ["Orientation"]):
+                df_delta = pd.read_csv(DeLTA_csv_file, usecols=[str(feature)])
+                # remove nan values
+                df_delta = df_delta.loc[df_delta[str(feature)].notnull()]
             df_fast = pd.read_csv(FAST_csv_file, usecols=[str(feature)])
             # remove nan values
             df_fast = df_fast.loc[df_fast[str(feature)].notnull()]
@@ -477,7 +485,7 @@ def bac_feature_distribution(
                 )
                 plot(
                     df_cp,
-                    df_delta,
+                    '',
                     df_fast,
                     df_oufti,
                     df_supersegger,
@@ -583,12 +591,33 @@ if __name__ == "__main__":
     Tools_name = ["CP", "DeLTA", "FAST", "Oufti", "SuperSegger"]
 
     # life history based distribution
-    # life_history_based_distribution(features['features_lifehistory_based'] ,end_of_file_names["features_lifehistory_based"],Tools_name,datasets,main_directories,plot_titles["features_lifehistory_based"])
+    life_history_based_distribution(
+        features["features_lifehistory_based"],
+        end_of_file_names["features_lifehistory_based"],
+        Tools_name,
+        datasets,
+        main_directories,
+        plot_titles["features_lifehistory_based"],
+    )
     # lineage based feature
-    # life_history_based_distribution(features['feature_lineage_based'] ,end_of_file_names["feature_lineage_based"],Tools_name,datasets,main_directories,plot_titles["feature_lineage_based"])
+    life_history_based_distribution(
+        features["feature_lineage_based"],
+        end_of_file_names["feature_lineage_based"],
+        Tools_name,
+        datasets,
+        main_directories,
+        plot_titles["feature_lineage_based"],
+    )
     # bac_feature
-    # bac_feature_distribution(features['feature_bac_feature'] ,end_of_file_names["feature_bac_feature"],Tools_name,datasets,main_directories,plot_titles["feature_bac_feature"])
-    # rimestep_based
+    bac_feature_distribution(
+        features["feature_bac_feature"],
+        end_of_file_names["feature_bac_feature"],
+        Tools_name,
+        datasets,
+        main_directories,
+        plot_titles["feature_bac_feature"],
+    )
+    # timestep_based
     timestep_based_distribution(
         features["feature_timeStep_based"],
         end_of_file_names["feature_timeStep_based"],

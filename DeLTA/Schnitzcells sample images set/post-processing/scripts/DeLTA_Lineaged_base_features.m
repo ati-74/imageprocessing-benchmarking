@@ -1,7 +1,7 @@
 
-load('../../Tracks.mat','procTracks');
+load('../../output/Position000000.mat','res');
 
-cellNumber=length(procTracks);
+cellNumber=length(res{1}.lineage);
 
 %based on linedivision
 lable=[];
@@ -11,12 +11,12 @@ last_lable_value=0;
 dict1=containers.Map(0,0);
 
 for i=1:cellNumber
-    if isempty(procTracks(i).M)==1
+    if res{1}.lineage{i}.mother==0
         division_value=0;
         last_lable_value=last_lable_value+1;
         lable_value=last_lable_value;
     else
-        parent=procTracks(i).M;
+        parent=res{1}.lineage{i}.mother;
         lable_value=lable(parent);
         division_value=division(parent)+1;
     end
@@ -28,12 +28,12 @@ for i=1:cellNumber
     
 end
 
-
+remove(dict1,0)
 %add to table
 T = table(transpose(dict1.keys),transpose(dict1.values));
 %add column name
-T.Properties.VariableNames={'Cell_lable','NumberOfDivision'};
+T.Properties.VariableNames={'CellLiniedivision','NumberOfDivision'};
 
 % write to csv
-writetable(T,'../results/FAST_Lineage_based_Analysis.csv','Delimiter',',','QuoteStrings',true)
+writetable(T,'../results/DeLTA_lineage_based_analysis.csv','Delimiter',',','QuoteStrings',true)
 

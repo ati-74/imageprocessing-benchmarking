@@ -27,6 +27,7 @@ for i=1:cellNumber
     
 end
 
+remove(dict1,0)
 %add to table
 T = table(transpose(dict1.keys),transpose(dict1.values));
 %add column name

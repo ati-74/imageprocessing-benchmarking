@@ -3,37 +3,28 @@ load('../../output/Position000000.mat','res');
 
 cellNumber=length(res{1}.lineage);
 
-%based on linedivision
-lable=[];
-division=[];
-NumDivision=[];
-last_lable_value=0;
-dict1=containers.Map(0,0);
+TimeStep=[];
+cell_lable=[];
+Orientation=[];
+Center_X=[];
+Center_Y=[];
+
 
 for i=1:cellNumber
-    if res{1}.lineage{i}.mother==0
-        division_value=0;
-        last_lable_value=last_lable_value+1;
-        lable_value=last_lable_value;
-    else
-        parent=res{1}.lineage{i}.mother;
-        lable_value=lable(parent);
-        division_value=division(parent)+1;
-    end
-    dict1(lable_value)=division_value;
-    %save Results
-    %append to list
-    lable(length(lable)+1)=lable_value;
-    division(length(division)+1)=division_value;
-    
+    lifeHistoryValue=length(res{1}.lineage{i}.frames);
+    for j=1:lifeHistoryValue
+        TimeStep(end+1) = res{1}.lineage{i}.frames(j);
+        cell_lable(end+1)=i;
+        Orientation(end+1)=res{1}.lineage{i}.orientation(j);
+        Center_X(end+1)=res{1}.lineage{i}.x_center(j);
+        Center_Y(end+1)=res{1}.lineage{i}.y_center(j);
+    end   
 end
 
-
 %add to table
-T = table(transpose(dict1.keys),transpose(dict1.values));
+T = sortrows(table(transpose(TimeStep),transpose(cell_lable),transpose(Orientation),transpose(Center_X),transpose(Center_Y)));
 %add column name
-T.Properties.VariableNames={'CellLiniedivision','NumberOfDivision'};
+T.Properties.VariableNames={'TimeStep','Cell_lable','Orientation','Center_X','Center_Y'};
 
 % write to csv
-writetable(T,'../results/DeLTA_lineage_based_analysis.csv','Delimiter',',','QuoteStrings',true)
-
+writetable(T,'../results/DeLTA_bacteria_feature_analysis.csv','Delimiter',',','QuoteStrings',true)

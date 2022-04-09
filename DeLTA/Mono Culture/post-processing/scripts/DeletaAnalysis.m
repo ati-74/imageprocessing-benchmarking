@@ -28,9 +28,9 @@ for i=1:cellNumber
         growth_rateValue=NaN;
     end
     %average velocity
-    %x1=sqrt(res{1}.lineage{i}.x_center(1)^2+res{1}.lineage{i}.y_center(1)^2);
-    %x2=sqrt(res{1}.lineage{i}.x_center(end)^2+res{1}.lineage{i}.y_center(end)^2);
-    %AverageVelocityValue=(x2-x1)/(lifeHistoryValue*intervalTime);
+    x1=sqrt(res{1}.lineage{i}.x_center(1)^2+res{1}.lineage{i}.y_center(1)^2);
+    x2=sqrt(res{1}.lineage{i}.x_center(end)^2+res{1}.lineage{i}.y_center(end)^2);
+    AverageVelocityValue=(x2-x1)/(lifeHistoryValue*intervalTime);
     %first & last timeStep
     firstFrameValue=res{1}.lineage{i}.frames(1);
     lastFrameValue=res{1}.lineage{i}.frames(end);    

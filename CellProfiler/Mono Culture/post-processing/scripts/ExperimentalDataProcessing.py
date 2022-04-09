@@ -248,12 +248,15 @@ def BacteriaAnalysis(dataFrame, interval_time, growth_rate_method):
     # rename
     FinaldataFrame = dataFrame.rename(
         columns={
+            "ImageNumber": "TimeStep",
             "AreaShape_Orientation": "Orientation",
             "TrackObjects_Label_50": "lable",
+            "AreaShape_Center_X": "Center_X",
+            "AreaShape_Center_Y": "Center_Y"
         }
     )
     FinaldataFrame = FinaldataFrame[
-        ["ImageNumber", "ObjectNumber", "Orientation", "lable", "divideFlag"]
+        ["TimeStep", "ObjectNumber", "Orientation", "lable", "Center_X", "Center_Y", "divideFlag"]
     ]
     # rename some columns
     results = pd.DataFrame.from_dict(result_dict, orient="index").transpose()

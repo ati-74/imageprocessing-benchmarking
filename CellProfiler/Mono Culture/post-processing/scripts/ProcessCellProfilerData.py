@@ -23,13 +23,13 @@ def lineage_based_analysis(df):
 
 
 def Num_cells_in_each_timeStep(df):
-    uniq_timeSteps = list(set(df["ImageNumber"].values))
+    uniq_timeSteps = list(set(df["TimeStep"].values))
     result_dict = {
         "TimeStep": [],
         "NumberOfCells": [],
     }
     for timestep in uniq_timeSteps:
-        df_current_timestep = df.loc[df["ImageNumber"] == timestep]
+        df_current_timestep = df.loc[df["TimeStep"] == timestep]
         # save results
         result_dict["TimeStep"].append(timestep)
         result_dict["NumberOfCells"].append(df_current_timestep.shape[0])
