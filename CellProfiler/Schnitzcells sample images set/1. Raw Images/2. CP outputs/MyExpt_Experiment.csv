@@ -84,25 +84,11 @@ ColorToGray:[module_num:5|svn_version:'Unknown'|variable_revision_number:4|show_
     Relative weight of the channel:1.0
     Image name:Channel1
 
-RescaleIntensity:[module_num:6|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+CorrectIlluminationCalculate:[module_num:6|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Select the input image:OrigGray
-    Name the output image:RescaleIntensity
-    Rescaling method:Stretch each image to use the full intensity range
-    Method to calculate the minimum intensity:Custom
-    Method to calculate the maximum intensity:Custom
-    Lower intensity limit for the input image:0.0
-    Upper intensity limit for the input image:1.0
-    Intensity range for the input image:0.0,1.0
-    Intensity range for the output image:0.0,1.0
-    Select image to match in maximum intensity:None
-    Divisor value:1.0
-    Divisor measurement:None
-
-CorrectIlluminationCalculate:[module_num:7|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
-    Select the input image:RescaleIntensity
     Name the output image:IllumBlue
     Select how the illumination function is calculated:Regular
-    Dilate objects in the final averaged image?:Yes
+    Dilate objects in the final averaged image?:No
     Dilation radius:1
     Block size:60
     Rescale the illumination function?:Yes
@@ -123,29 +109,56 @@ CorrectIlluminationCalculate:[module_num:7|svn_version:'Unknown'|variable_revisi
     Maximum number of iterations:40
     Residual value for convergence:0.001
 
-CorrectIlluminationApply:[module_num:8|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
-    Select the input image:RescaleIntensity
+CorrectIlluminationApply:[module_num:7|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:OrigGray
     Name the output image:CorrBlue
     Select the illumination function:IllumBlue
     Select how the illumination function is applied:Divide
     Set output image values less than 0 equal to 0?:Yes
     Set output image values greater than 1 equal to 1?:Yes
 
-EnhanceEdges:[module_num:9|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+Threshold:[module_num:8|svn_version:'Unknown'|variable_revision_number:12|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Select the input image:CorrBlue
-    Name the output image:EdgedImage
-    Automatically calculate the threshold?:Yes
-    Absolute threshold:0.2
-    Threshold adjustment factor:1.0
-    Select an edge-finding method:Sobel
-    Select edge direction to enhance:All
-    Calculate Gaussian's sigma automatically?:Yes
-    Gaussian's sigma value:10.0
-    Calculate value for low threshold automatically?:Yes
-    Low threshold value:0.1
+    Name the output image:Threshold
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Threshold smoothing scale:0.0
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0.0,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Minimum Cross-Entropy
+
+ImageMath:[module_num:9|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:Invert
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:ImageAfterMath
+    Image or measurement?:Image
+    Select the first image:CorrBlue
+    Multiply the first image by:1.0
+    Measurement:
+    Image or measurement?:Image
+    Select the second image:None
+    Multiply the second image by:1.0
+    Measurement:
 
 Watershed:[module_num:10|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
-    Select the input image:EdgedImage
+    Select the input image:ImageAfterMath
     Name the output object:Watershed
     Use advanced settings?:No
     Generate from:Distance
@@ -159,7 +172,7 @@ Watershed:[module_num:10|svn_version:'Unknown'|variable_revision_number:3|show_w
     Declump method:Shape
     Reference Image:None
     Segmentation distance transform smoothing factor:10
-    Minimum distance between seeds:10
+    Minimum distance between seeds:20
     Minimum absolute internal distance:0.0
     Pixels from border to exclude:50
     Maximum number of seeds:-1
@@ -169,7 +182,7 @@ IdentifySecondaryObjects:[module_num:11|svn_version:'Unknown'|variable_revision_
     Select the input objects:Watershed
     Name the objects to be identified:IdentifySecondaryObjects
     Select the method to identify the secondary objects:Propagation
-    Select the input image:EdgedImage
+    Select the input image:ImageAfterMath
     Number of pixels by which to expand the primary objects:10
     Regularization factor:0.05
     Discard secondary objects touching the border of the image?:Yes
@@ -288,4 +301,4 @@ ExportToSpreadsheet:[module_num:16|svn_version:'Unknown'|variable_revision_numbe
     File name:DATA.csv
     Use the object name for the file name?:Yes
 "
-Run_Timestamp,2022-04-08T21:12:49.275683
+Run_Timestamp,2022-04-10T03:16:28.783534

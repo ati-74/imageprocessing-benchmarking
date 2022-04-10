@@ -2,7 +2,7 @@ CellProfiler Pipeline: http://www.cellprofiler.org
 Version:5
 DateRevision:421
 GitHash:
-ModuleCount:15
+ModuleCount:16
 HasImagePlaneDetails:False
 
 Images:[module_num:1|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['To begin creating your project, use the Images module to compile a list of files and/or folders that you want to analyze. You can also specify a set of rules to include only the desired files in your selected folders.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
@@ -78,11 +78,11 @@ ColorToGray:[module_num:5|svn_version:'Unknown'|variable_revision_number:4|show_
     Relative weight of the channel:1.0
     Image name:Channel1
 
-CorrectIlluminationCalculate:[module_num:6|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+CorrectIlluminationCalculate:[module_num:6|svn_version:'Unknown'|variable_revision_number:2|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Select the input image:OrigGray
     Name the output image:IllumBlue
     Select how the illumination function is calculated:Regular
-    Dilate objects in the final averaged image?:Yes
+    Dilate objects in the final averaged image?:No
     Dilation radius:1
     Block size:60
     Rescale the illumination function?:Yes
@@ -111,21 +111,48 @@ CorrectIlluminationApply:[module_num:7|svn_version:'Unknown'|variable_revision_n
     Set output image values less than 0 equal to 0?:Yes
     Set output image values greater than 1 equal to 1?:Yes
 
-EnhanceEdges:[module_num:8|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+Threshold:[module_num:8|svn_version:'Unknown'|variable_revision_number:12|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Select the input image:CorrBlue
-    Name the output image:EdgedImage
-    Automatically calculate the threshold?:Yes
-    Absolute threshold:0.2
-    Threshold adjustment factor:1.0
-    Select an edge-finding method:Sobel
-    Select edge direction to enhance:All
-    Calculate Gaussian's sigma automatically?:Yes
-    Gaussian's sigma value:10.0
-    Calculate value for low threshold automatically?:Yes
-    Low threshold value:0.1
+    Name the output image:Threshold
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Threshold smoothing scale:0.0
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0.0,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Minimum Cross-Entropy
 
-Watershed:[module_num:9|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
-    Select the input image:EdgedImage
+ImageMath:[module_num:9|svn_version:'Unknown'|variable_revision_number:5|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:Invert
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:ImageAfterMath
+    Image or measurement?:Image
+    Select the first image:CorrBlue
+    Multiply the first image by:1.0
+    Measurement:
+    Image or measurement?:Image
+    Select the second image:None
+    Multiply the second image by:1.0
+    Measurement:
+
+Watershed:[module_num:10|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:ImageAfterMath
     Name the output object:Watershed
     Use advanced settings?:No
     Generate from:Distance
@@ -139,17 +166,17 @@ Watershed:[module_num:9|svn_version:'Unknown'|variable_revision_number:3|show_wi
     Declump method:Shape
     Reference Image:None
     Segmentation distance transform smoothing factor:10
-    Minimum distance between seeds:10
+    Minimum distance between seeds:20
     Minimum absolute internal distance:0.0
     Pixels from border to exclude:50
     Maximum number of seeds:-1
     Structuring element for seed dilation:Disk,1
 
-IdentifySecondaryObjects:[module_num:10|svn_version:'Unknown'|variable_revision_number:10|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+IdentifySecondaryObjects:[module_num:11|svn_version:'Unknown'|variable_revision_number:10|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Select the input objects:Watershed
     Name the objects to be identified:IdentifySecondaryObjects
     Select the method to identify the secondary objects:Propagation
-    Select the input image:CorrBlue
+    Select the input image:ImageAfterMath
     Number of pixels by which to expand the primary objects:10
     Regularization factor:0.05
     Discard secondary objects touching the border of the image?:Yes
@@ -175,7 +202,7 @@ IdentifySecondaryObjects:[module_num:10|svn_version:'Unknown'|variable_revision_
     # of deviations:2.0
     Thresholding method:Minimum Cross-Entropy
 
-TrackObjects:[module_num:11|svn_version:'Unknown'|variable_revision_number:7|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+TrackObjects:[module_num:12|svn_version:'Unknown'|variable_revision_number:7|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Choose a tracking method:Overlap
     Select the objects to track:IdentifySecondaryObjects
     Select object measurement to use for tracking:None
@@ -206,12 +233,12 @@ TrackObjects:[module_num:11|svn_version:'Unknown'|variable_revision_number:7|sho
     Cost of cell to empty matching:15.0
     Weight of area difference in function matching cost:25.0
 
-MeasureObjectSizeShape:[module_num:12|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+MeasureObjectSizeShape:[module_num:13|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Select object sets to measure:IdentifySecondaryObjects
     Calculate the Zernike features?:No
     Calculate the advanced features?:No
 
-MeasureObjectNeighbors:[module_num:13|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+MeasureObjectNeighbors:[module_num:14|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Select objects to measure:IdentifySecondaryObjects
     Select neighboring objects to measure:IdentifySecondaryObjects
     Method to determine neighbors:Expand until adjacent
@@ -224,7 +251,7 @@ MeasureObjectNeighbors:[module_num:13|svn_version:'Unknown'|variable_revision_nu
     Name the output image:PercentTouching
     Select colormap:Oranges
 
-SaveImages:[module_num:14|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+SaveImages:[module_num:15|svn_version:'Unknown'|variable_revision_number:16|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Select the type of image to save:Image
     Select the image to save:TrackedCells
     Select method for constructing file names:Sequential numbers
@@ -244,7 +271,7 @@ SaveImages:[module_num:14|svn_version:'Unknown'|variable_revision_number:16|show
     How to save the series:T (Time)
     Save with lossless compression?:Yes
 
-ExportToSpreadsheet:[module_num:15|svn_version:'Unknown'|variable_revision_number:13|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+ExportToSpreadsheet:[module_num:16|svn_version:'Unknown'|variable_revision_number:13|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Select the column delimiter:Comma (",")
     Add image metadata columns to your object data file?:No
     Add image file and folder names to your object data file?:No
