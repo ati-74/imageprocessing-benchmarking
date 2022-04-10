@@ -191,7 +191,7 @@ SaveImages:[module_num:12|svn_version:'Unknown'|variable_revision_number:16|show
     Select the image to save:TrackedCells
     Select method for constructing file names:Sequential numbers
     Select image name for file prefix:None
-    Enter file prefix:monoObjects
+    Enter file prefix:SchObjects
     Number of digits:4
     Append a suffix to the image file name?:No
     Text to append to the image name:

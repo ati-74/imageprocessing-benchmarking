@@ -45,7 +45,7 @@ def ProcessData(input_file, interval_time, growth_rate_method="Average"):
     # remove Nan lables and zero MajorAxisLength
     dataFrame = dataFrame.loc[
         (dataFrame["TrackObjects_Label_50"].notnull())
-        & (dataFrame["AreaShape_MajorAxisLength"] != 0)
+        & (dataFrame["AreaShape_MajorAxisLength"] >= 10)
     ].reset_index(drop=True)
     dataFrame = dataFrame.reset_index(drop=True)
 
