@@ -12,6 +12,8 @@ cellNumber_value = [];
 orientation=[];
 Center_X=[];
 Center_Y=[];
+major_axis = [];
+minor_axis = [];
 
 for i=1:Num_files
     file_name=sorted_files(i).name;
@@ -25,13 +27,15 @@ for i=1:Num_files
         orientation (end+1) = CellA{1,j}.coord.orientation;
         Center_X (end+1) = CellA{1,j}.coord.r_center(1);
         Center_Y (end+1) = CellA{1,j}.coord.r_center(2);
+        major_axis (end+1) = CellA{1,j}.cellLength(1);
+        minor_axis (end+1) = CellA{1,j}.cellLength(2);
     end
 end
 
 %add to sorted table
-T = sortrows(table(transpose(TimeStep),transpose(cellNumber_value),transpose(orientation),transpose(Center_X),transpose(Center_Y)));
+T = sortrows(table(transpose(TimeStep),transpose(cellNumber_value),transpose(orientation),transpose(Center_X),transpose(Center_Y),transpose(major_axis),transpose(minor_axis)));
 %add column name
-T.Properties.VariableNames={'TimeStep','CellNumber','Orientation','Center_X','Center_Y'};
+T.Properties.VariableNames={'TimeStep','CellNumber','Orientation','Center_X','Center_Y','Major_axis','Minor_axis'};
 
 % write to csv
 %life history based features
