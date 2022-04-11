@@ -9,7 +9,8 @@ CellId=[];
 x_center=[];
 y_center=[];
 Orientation=[];
-MajorAxisLength=[];
+Major_axis=[];
+Minor_axis = [];
 parent=[];
 num_cells=[];
 lable = [];
@@ -35,7 +36,8 @@ for i=1:TimeSteps
             elFit = fit_ellipse(x,y);
             %in degree
             Orientation(end+1) = mod(rad2deg(elFit.phi)+180,180)-90;
-            MajorAxisLength(end+1) = elFit.long_axis;
+            Major_axis(end+1) = elFit.long_axis;
+            Minor_axis(end+1) = elFit.short_axis;
             % X0          - center at the X axis of the non-tilt ellipse
             % Y0          - center at the Y axis of the non-tilt ellipse
             x_center(end+1)=elFit.X0;
@@ -43,7 +45,8 @@ for i=1:TimeSteps
             valid_num_cell=valid_num_cell+1;
         else
            Orientation(end+1)=0;
-           MajorAxisLength(end+1)=0;
+           Major_axis(end+1)=0;
+           Minor_axis(end+1)=0;
            x_center(end+1)=0;
            y_center(end+1)=0;
         end
@@ -54,7 +57,7 @@ for i=1:TimeSteps
             if isKey(lable_dict,cellId_value) ==1
                 lable(end+1) = lable_dict (cellId_value);
             else
-                if  MajorAxisLength(end) == 0 %invalid cell
+                if  Major_axis(end) == 0 %invalid cell
                     lable_dict (cellId_value) = 0;
                     cellId_value
                     lable_dict (cellId_value)
@@ -77,14 +80,14 @@ end
 
 
 %add to table
-T = table(transpose(StepNum),transpose(CellId),transpose(x_center),transpose(y_center),transpose(Orientation),transpose(MajorAxisLength),transpose(lable),transpose(parent));
+T = table(transpose(StepNum),transpose(CellId),transpose(x_center),transpose(y_center),transpose(Orientation),transpose(Major_axis),transpose(Minor_axis),transpose(lable),transpose(parent));
 T2=table(transpose(1:length(transpose(num_cells))),transpose(num_cells));
 %add column name
-T.Properties.VariableNames={'TimeStep','CellId','Center_X','Center_Y','Orientation','MajorAxisLength','lable','parent'};
+T.Properties.VariableNames={'TimeStep','CellId','Center_X','Center_Y','Orientation','Major_axis','Minor_axis','lable','parent'};
 T2.Properties.VariableNames={'StepNumber','NumberOfCells'};
 
-% remove unwanted rows (MajorAxisLength = 0)
-T(ismember(T.MajorAxisLength,0),:)=[];
+% remove unwanted rows (Major_axis = 0)
+T(ismember(T.Major_axis,0),:)=[];
 
 % write to csv
 writetable(T,'../results/Oufti_bacteria_feature_analysis.csv','Delimiter',',','QuoteStrings',true)
