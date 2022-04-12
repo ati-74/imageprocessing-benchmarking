@@ -20,6 +20,12 @@ def plot(
 ):
 
     fig, ax = plt.subplots()
+    if plot_title in ["distribution of life history for each cell","detected cell division in cells lineage"]:
+        min_val = np.round(min_val)
+        max_val = np.round(max_val)+1
+        num_bins = int(max_val - min_val)
+    else:
+        max_val = max_val +1    
     a_heights, a_bins = np.histogram(df1, bins=num_bins, range=(min_val, max_val))
     if dataset != "Mono Culture" or feature not in ["AverageVelocity", "AverageLength","Orientation"]:
         b_heights, b_bins = np.histogram(df2, bins=num_bins, range=(min_val, max_val))
@@ -63,10 +69,16 @@ def plot(
 
     # bins
     bins_str = []
-    for i in range(len(a_bins) - 1):
-        bins_str.append(
-            str(np.round(a_bins[i], 2)) + "-" + str(np.round(a_bins[i + 1], 2))
-        )
+    if plot_title in ["distribution of life history for each cell","detected cell division in cells lineage"]:
+        for i in range(len(a_bins) - 1):
+            bins_str.append(
+                str(np.ceil(a_bins[i])) + "-" + str(np.floor(a_bins[i + 1]))
+            )
+    else:
+        for i in range(len(a_bins) - 1):
+            bins_str.append(
+                str(np.round(a_bins[i], 2)) + "-" + str(np.round(a_bins[i + 1], 2))
+            )        
     plt.xticks(
         ticks=a_bins[: len(a_bins) - 1], labels=bins_str, rotation=90, fontsize=6
     )
@@ -89,7 +101,7 @@ def life_history_based_distribution(
             CP_csv_file = (
                 main_directories["CP_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[0]
                 + "_"
                 + end_of_file_name
@@ -101,7 +113,7 @@ def life_history_based_distribution(
                 DeLTA_csv_file = (
                     main_directories["DeLTA_directory"]
                     + dataset
-                    + "/post-processing/results/"
+                    + "/1. Raw Images/post-processing/results/"
                     + Tools_name[1]
                     + "_"
                     + end_of_file_name
@@ -110,7 +122,7 @@ def life_history_based_distribution(
             FAST_csv_file = (
                 main_directories["FAST_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[2]
                 + "_"
                 + end_of_file_name
@@ -119,7 +131,7 @@ def life_history_based_distribution(
             Oufti_csv_file = (
                 main_directories["Oufti_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/1. Raw Images/post-processing/results/"
                 + Tools_name[3]
                 + "_"
                 + end_of_file_name
@@ -128,7 +140,7 @@ def life_history_based_distribution(
             SuperSegger_csv_file = (
                 main_directories["SuperSegger_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/1. Raw Images/post-processing/results/"
                 + Tools_name[4]
                 + "_"
                 + end_of_file_name
@@ -225,7 +237,7 @@ def lineage_based_distribution(
             CP_csv_file = (
                 main_directories["CP_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[0]
                 + "_"
                 + end_of_file_name
@@ -234,7 +246,7 @@ def lineage_based_distribution(
             DeLTA_csv_file = (
                 main_directories["DeLTA_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/1. Raw Images/post-processing/results/"
                 + Tools_name[1]
                 + "_"
                 + end_of_file_name
@@ -243,7 +255,7 @@ def lineage_based_distribution(
             FAST_csv_file = (
                 main_directories["FAST_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[2]
                 + "_"
                 + end_of_file_name
@@ -252,7 +264,7 @@ def lineage_based_distribution(
             Oufti_csv_file = (
                 main_directories["Oufti_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/1. Raw Images/post-processing/results/"
                 + Tools_name[3]
                 + "_"
                 + end_of_file_name
@@ -261,7 +273,7 @@ def lineage_based_distribution(
             SuperSegger_csv_file = (
                 main_directories["SuperSegger_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/1. Raw Images/post-processing/results/"
                 + Tools_name[4]
                 + "_"
                 + end_of_file_name
@@ -322,7 +334,7 @@ def timestep_based_distribution(
             CP_csv_file = (
                 main_directories["CP_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[0]
                 + "_"
                 + end_of_file_name
@@ -331,7 +343,7 @@ def timestep_based_distribution(
             DeLTA_csv_file = (
                 main_directories["DeLTA_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/1. Raw Images/post-processing/results/"
                 + Tools_name[1]
                 + "_"
                 + end_of_file_name
@@ -340,7 +352,7 @@ def timestep_based_distribution(
             FAST_csv_file = (
                 main_directories["FAST_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[2]
                 + "_"
                 + end_of_file_name
@@ -349,7 +361,7 @@ def timestep_based_distribution(
             Oufti_csv_file = (
                 main_directories["Oufti_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/1. Raw Images/post-processing/results/"
                 + Tools_name[3]
                 + "_"
                 + end_of_file_name
@@ -358,7 +370,7 @@ def timestep_based_distribution(
             SuperSegger_csv_file = (
                 main_directories["SuperSegger_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/1. Raw Images/post-processing/results/"
                 + Tools_name[4]
                 + "_"
                 + end_of_file_name
@@ -409,7 +421,7 @@ def bac_feature_distribution(
             CP_csv_file = (
                 main_directories["CP_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[0]
                 + "_"
                 + end_of_file_name
@@ -419,7 +431,7 @@ def bac_feature_distribution(
                 DeLTA_csv_file = (
                     main_directories["DeLTA_directory"]
                     + dataset
-                    + "/post-processing/results/"
+                    + "/1. Raw Images/post-processing/results/"
                     + Tools_name[1]
                     + "_"
                     + end_of_file_name
@@ -428,7 +440,7 @@ def bac_feature_distribution(
             FAST_csv_file = (
                 main_directories["FAST_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[2]
                 + "_"
                 + end_of_file_name
@@ -437,7 +449,7 @@ def bac_feature_distribution(
             Oufti_csv_file = (
                 main_directories["Oufti_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/1. Raw Images/post-processing/results/"
                 + Tools_name[3]
                 + "_"
                 + end_of_file_name
@@ -446,7 +458,7 @@ def bac_feature_distribution(
             SuperSegger_csv_file = (
                 main_directories["SuperSegger_directory"]
                 + dataset
-                + "/post-processing/results/"
+                + "/1. Raw Images/post-processing/results/"
                 + Tools_name[4]
                 + "_"
                 + end_of_file_name

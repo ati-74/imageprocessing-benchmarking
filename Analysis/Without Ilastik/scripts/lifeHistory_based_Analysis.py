@@ -20,24 +20,29 @@ def plot(
 ):
 
     fig, ax = plt.subplots()
+    if plot_title in ["distribution of life history for each cell","detected cell division in cells lineage"]:
+        min_val = np.round(min_val)
+        max_val = np.round(max_val)+1
+        num_bins = int(max_val - min_val)
+    else:
+        max_val = max_val +1
     a_heights, a_bins = np.histogram(df1, bins=num_bins, range=(min_val, max_val))
-    if dataset != "Mono Culture" or feature not in ["AverageVelocity", "AverageLength","Orientation"]:
-        b_heights, b_bins = np.histogram(df2, bins=num_bins, range=(min_val, max_val))
+    b_heights, b_bins = np.histogram(df2, bins=num_bins, range=(min_val, max_val))
     c_heights, c_bins = np.histogram(df3, bins=num_bins, range=(min_val, max_val))
-    d_heights, d_bins = np.histogram(df4, bins=num_bins, range=(min_val, max_val))
+    if dataset !='Schnitzcells sample images set':
+        d_heights, d_bins = np.histogram(df4, bins=num_bins, range=(min_val, max_val))
     e_heights, e_bins = np.histogram(df5, bins=num_bins, range=(min_val, max_val))
     width = (a_bins[1] - a_bins[0]) / 5
 
     ax.bar(a_bins[:-1], a_heights, width=width, facecolor="red", label=Tools_name[0])
 
-    if dataset != "Mono Culture" or feature not in ["AverageVelocity", "AverageLength","Orientation"]:
-        ax.bar(
+    ax.bar(
             b_bins[:-1] + width,
             b_heights,
             width=width,
             facecolor="black",
             label=Tools_name[1],
-        )
+    )
     ax.bar(
         c_bins[:-1] + 2 * width,
         c_heights,
@@ -45,13 +50,14 @@ def plot(
         facecolor="green",
         label=Tools_name[2],
     )
-    ax.bar(
-        d_bins[:-1] + 3 * width,
-        d_heights,
-        width=width,
-        facecolor="yellow",
-        label=Tools_name[3],
-    )
+    if dataset !='Schnitzcells sample images set':
+        ax.bar(
+            d_bins[:-1] + 3 * width,
+            d_heights,
+            width=width,
+            facecolor="yellow",
+            label=Tools_name[3],
+        )
     ax.bar(
         e_bins[:-1] + 4 * width,
         e_heights,
@@ -63,10 +69,18 @@ def plot(
 
     # bins
     bins_str = []
-    for i in range(len(a_bins) - 1):
-        bins_str.append(
-            str(np.round(a_bins[i], 2)) + "-" + str(np.round(a_bins[i + 1], 2))
-        )
+
+    if plot_title in ["distribution of life history for each cell","detected cell division in cells lineage"]:
+        for i in range(len(a_bins) - 1):
+                bins_str.append(
+                    str(int(a_bins[i]))
+                )
+    else:
+        for i in range(len(a_bins) - 1):
+                bins_str.append(
+                    str(np.round(a_bins[i], 2)) + "-" + str(np.round(a_bins[i + 1], 2))
+                )
+                
     plt.xticks(
         ticks=a_bins[: len(a_bins) - 1], labels=bins_str, rotation=90, fontsize=6
     )

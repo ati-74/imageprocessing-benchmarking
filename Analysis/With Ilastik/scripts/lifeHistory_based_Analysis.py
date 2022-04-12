@@ -20,6 +20,12 @@ def plot(
 ):
 
     fig, ax = plt.subplots()
+    if plot_title in ["distribution of life history for each cell","detected cell division in cells lineage"]:
+        min_val = np.round(min_val)
+        max_val = np.round(max_val)+1
+        num_bins = int(max_val - min_val)
+    else:
+        max_val = max_val +1
     a_heights, a_bins = np.histogram(df1, bins=num_bins, range=(min_val, max_val))
     b_heights, b_bins = np.histogram(df2, bins=num_bins, range=(min_val, max_val))
     c_heights, c_bins = np.histogram(df3, bins=num_bins, range=(min_val, max_val))
@@ -63,10 +69,18 @@ def plot(
 
     # bins
     bins_str = []
-    for i in range(len(a_bins) - 1):
-        bins_str.append(
-            str(np.round(a_bins[i], 2)) + "-" + str(np.round(a_bins[i + 1], 2))
-        )
+
+    if plot_title in ["distribution of life history for each cell","detected cell division in cells lineage"]:
+        for i in range(len(a_bins) - 1):
+                bins_str.append(
+                    str(int(a_bins[i]))
+                )
+    else:
+        for i in range(len(a_bins) - 1):
+                bins_str.append(
+                    str(np.round(a_bins[i], 2)) + "-" + str(np.round(a_bins[i + 1], 2))
+                )
+                
     plt.xticks(
         ticks=a_bins[: len(a_bins) - 1], labels=bins_str, rotation=90, fontsize=6
     )
