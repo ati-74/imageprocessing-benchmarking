@@ -16,7 +16,7 @@ interSigma = 0
 
 
 % Pixel-based parameters
-areaMin =250
+areaMin =100
 areaMax = 5000
 splitregions = 1
 displayW = 0
