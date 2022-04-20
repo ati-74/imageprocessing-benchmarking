@@ -40,7 +40,7 @@ def life_history_based_features(df, interval_Time):
         # lifeHistory
         LifeHistoryLength = df_lifeHistory.shape[0]
         # mean Length
-        meanLength = np.mean(df_lifeHistory["MajorAxisLength"].values)
+        meanLength = np.mean(df_lifeHistory["Major_axis"].values)
 
         # Average Velocity
         pos1 = df_lifeHistory.iloc[0][["Center_X", "Center_Y"]]
@@ -50,8 +50,8 @@ def life_history_based_features(df, interval_Time):
         )
 
         # growth rate
-        birth_length = df_lifeHistory.iloc[0]["MajorAxisLength"]
-        division_length = df_lifeHistory.iloc[-1]["MajorAxisLength"]
+        birth_length = df_lifeHistory.iloc[0]["Major_axis"]
+        division_length = df_lifeHistory.iloc[-1]["Major_axis"]
         growth_rate = AverageGrowthRate(
             division_length, birth_length, LifeHistoryLength, interval_Time
         )
