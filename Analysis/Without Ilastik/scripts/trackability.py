@@ -21,7 +21,7 @@ def single_plot(t, trackability_score, name, plot_title, dataset,color):
     ax.set_ylabel('Trackability score')
     # plt.show()
     fig.savefig(
-        "../trackability plots/" + plot_title + "_" + dataset + "_" + name + ".png",
+        "../trackability plots/"+dataset + "/" + plot_title + "_" + dataset + "_" + name + ".png",
         dpi=600,
     )
     # close fig
@@ -83,13 +83,14 @@ def trackability_calc(df):
                 + df_current_timeStep["Center_Y"] ** 2
             )
             x_stdev = stdev(x)
-            trackability = (
-                np.log2(x_stdev / delta_x_stdev)
-                + 0.5 * np.log2(6 / (np.pi * np.exp(1)))
-                - np.log2(num_bac)
-            )
-            trackability_values.append(trackability)
-            timeStep_val.append(timestep + 1)
+            if delta_x_stdev != 0:
+                trackability = (
+                    np.log2(x_stdev / delta_x_stdev)
+                    + 0.5 * np.log2(6 / (np.pi * np.exp(1)))
+                    - np.log2(num_bac)
+                )
+                trackability_values.append(trackability)
+                timeStep_val.append(timestep + 1)
     return timeStep_val, trackability_values
 
 
@@ -125,13 +126,13 @@ def bac_feature(
             + ".csv"
         )
         Oufti_csv_file = (
-            main_directories["Oufti_directory"]
-            + dataset
-            + "/1. Raw Images/post-processing/results/"
-            + Tools_name[3]
-            + "_"
-            + end_of_file_name
-            + ".csv"
+                main_directories["Oufti_directory"]
+                + dataset
+                + "/1. Raw Images/post-processing/results/"
+                + Tools_name[3]
+                + "_"
+                + end_of_file_name
+                + ".csv"
         )
         SuperSegger_csv_file = (
             main_directories["SuperSegger_directory"]
@@ -144,24 +145,21 @@ def bac_feature(
         )
         # read csv file
         df_cp = pd.read_csv(CP_csv_file, usecols=features)
-        if dataset != "Mono Culture":
-            df_delta = pd.read_csv(DeLTA_csv_file, usecols=features)
+        df_delta = pd.read_csv(DeLTA_csv_file, usecols=features)
         df_fast = pd.read_csv(FAST_csv_file, usecols=features)
         df_oufti = pd.read_csv(Oufti_csv_file, usecols=features)
         df_supersegger = pd.read_csv(SuperSegger_csv_file, usecols=features)
 
         # calculation of trackability
         t_CP, trackability_CP = trackability_calc(df_cp)
-        if dataset != "Mono Culture":
-            t_DeLTA, trackability_DeLTA = trackability_calc(df_delta)
+        t_DeLTA, trackability_DeLTA = trackability_calc(df_delta)
         t_FAST, trackability_FAST = trackability_calc(df_fast)
         t_Oufti, trackability_Oufti = trackability_calc(df_oufti)
         t_SuperSegger, trackability_SuperSegger = trackability_calc(df_supersegger)
         # plot
         # single plot
         single_plot(t_CP, trackability_CP, Tools_name[0], plot_title, dataset,'red')
-        if dataset != "Mono Culture":
-            single_plot(t_DeLTA, trackability_DeLTA, Tools_name[1], plot_title, dataset,'black')
+        single_plot(t_DeLTA, trackability_DeLTA, Tools_name[1], plot_title, dataset,'black')
         single_plot(t_FAST, trackability_FAST, Tools_name[2], plot_title, dataset,'green')
         single_plot(t_Oufti, trackability_Oufti, Tools_name[3], plot_title, dataset,'yellow')
         single_plot(
@@ -170,8 +168,7 @@ def bac_feature(
         # all in one
         fig, ax = plt.subplots()
         plt.plot(t_CP, trackability_CP, "-", c="red", label=Tools_name[0])
-        if dataset != "Mono Culture":
-            plt.plot(t_DeLTA, trackability_DeLTA, "-", c="black", label=Tools_name[1])
+        plt.plot(t_DeLTA, trackability_DeLTA, "-", c="black", label=Tools_name[1])
         plt.plot(t_FAST, trackability_FAST, "-", c="green", label=Tools_name[2])
         plt.plot(t_Oufti, trackability_Oufti, "-", c="yellow", label=Tools_name[3])
         plt.plot(
@@ -210,6 +207,7 @@ if __name__ == "__main__":
 
     # datasets
     datasets = [
+        "Mono Culture",
         "Schnitzcells sample images set",
         "SuperSegger sample images set",
     ]
