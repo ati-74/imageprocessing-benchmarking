@@ -152,16 +152,19 @@ def bac_feature(
 
         # calculation of trackability
         t_CP, trackability_CP = trackability_calc(df_cp)
+        # plot
+        single_plot(t_CP, trackability_CP, Tools_name[0], plot_title, dataset,'red')        
         t_DeLTA, trackability_DeLTA = trackability_calc(df_delta)
+        # plot
+        single_plot(t_DeLTA, trackability_DeLTA, Tools_name[1], plot_title, dataset,'black')
         t_FAST, trackability_FAST = trackability_calc(df_fast)
+        # plot
+        single_plot(t_FAST, trackability_FAST, Tools_name[2], plot_title, dataset,'green')        
         t_Oufti, trackability_Oufti = trackability_calc(df_oufti)
+        # plot
+        single_plot(t_Oufti, trackability_Oufti, Tools_name[3], plot_title, dataset,'yellow')
         t_SuperSegger, trackability_SuperSegger = trackability_calc(df_supersegger)
         # plot
-        # single plot
-        single_plot(t_CP, trackability_CP, Tools_name[0], plot_title, dataset,'red')
-        single_plot(t_DeLTA, trackability_DeLTA, Tools_name[1], plot_title, dataset,'black')
-        single_plot(t_FAST, trackability_FAST, Tools_name[2], plot_title, dataset,'green')
-        single_plot(t_Oufti, trackability_Oufti, Tools_name[3], plot_title, dataset,'yellow')
         single_plot(
             t_SuperSegger, trackability_SuperSegger, Tools_name[4], plot_title, dataset,'blue'
         )
@@ -174,7 +177,6 @@ def bac_feature(
         plt.plot(
             t_SuperSegger, trackability_SuperSegger, "-", c="blue", label=Tools_name[4]
         )
-
         plt.xticks(rotation=90, fontsize=6)
         fig.subplots_adjust(bottom=0.2)
         plt.suptitle(
