@@ -6,6 +6,7 @@ files=dir([strcat(directory,'*.mat')]);
 sorted_files = natsortfiles(files);
 %number of files
 Num_files=length(sorted_files);
+num_time_steps = 19;
 
 TimeStep = [];
 cellNumber_value = [];
@@ -22,13 +23,15 @@ for i=1:Num_files
     life_history=length(CellA);
     
     for j=1:life_history
-        TimeStep(end+1)=birth+j-1;
-        cellNumber_value(end+1) = i;
-        orientation (end+1) = CellA{1,j}.coord.orientation;
-        Center_X (end+1) = CellA{1,j}.coord.r_center(1);
-        Center_Y (end+1) = CellA{1,j}.coord.r_center(2);
-        major_axis (end+1) = CellA{1,j}.cellLength(1);
-        minor_axis (end+1) = CellA{1,j}.cellLength(2);
+        if birth+j-1 <= num_time_steps
+            TimeStep(end+1)=birth+j-1;
+            cellNumber_value(end+1) = i;
+            orientation (end+1) = CellA{1,j}.coord.orientation;
+            Center_X (end+1) = CellA{1,j}.coord.r_center(1);
+            Center_Y (end+1) = CellA{1,j}.coord.r_center(2);
+            major_axis (end+1) = CellA{1,j}.cellLength(1);
+            minor_axis (end+1) = CellA{1,j}.cellLength(2);
+        end
     end
 end
 
