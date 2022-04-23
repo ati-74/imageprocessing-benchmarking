@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.metrics.pairwise import euclidean_distances
 from statistics import stdev
+from matplotlib.ticker import MaxNLocator
 
 
 def single_plot(t, trackability_score, name, plot_title, dataset,color):
@@ -19,6 +20,7 @@ def single_plot(t, trackability_score, name, plot_title, dataset,color):
     plt.legend(loc="upper right")
     ax.set_xlabel('Time Step')
     ax.set_ylabel('Trackability score')
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     # plt.show()
     fig.savefig(
         "../trackability plots/"+dataset + "/" + plot_title + "_" + dataset + "_" + name + ".png",
@@ -187,6 +189,7 @@ def bac_feature(
         plt.legend(loc="upper right")
         ax.set_xlabel('Time Step')
         ax.set_ylabel('Trackability score')
+        ax.xaxis.set_major_locator(MaxNLocator(integer=True))
         # plt.show()
         fig.savefig(
             "../trackability plots/" + plot_title + "_" + dataset + ".png", dpi=600
