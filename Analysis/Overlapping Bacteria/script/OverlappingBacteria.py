@@ -2,11 +2,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+import matplotlib.patheffects as mpe
 import matplotlib.patches as mpatches
 import cv2
 
 
-def plot(bc_df,t,tool,clr,dataset):   
+def plot(bc_df,t,tool,clr,dataset,mode_title):   
 
     fig, ax = plt.subplots()
     # draw bacteria
@@ -32,44 +33,48 @@ def plot(bc_df,t,tool,clr,dataset):
             # radian
             if tool[indx] == "CP":
                 angle = -(bacteria_orientation.iloc[cell_indx]+90) * np.pi / 180
-            elif tool[indx] == "FAST":
+            elif tool[indx] == "FAST" or tool[indx] =="Oufti":
                 angle = -(bacteria_orientation.iloc[cell_indx]) * np.pi / 180
             elif tool[indx] == "SuperSegger":
                 angle = (bacteria_orientation.iloc[cell_indx]) * np.pi / 180
-            elif tool[indx] == "DeLTA":
-                
-                angle = 90 - (bacteria_orientation.iloc[cell_indx])
-                rect = ((center[0],center[1]), (minor*2, major*2), angle)
-                print(center)
-                box = cv2.boxPoints(rect)
-                box = pd.DataFrame(np.int0(box))
-                x = box.loc[:,0].values.tolist()
-                y = box.loc[:,1].values.tolist()
-                plt.plot(x,y,color = clr[indx])
-            if tool[indx] in ["CP","FAST","SuperSegger"]:
+
                 # endpoints
-                Node_x1_x = center[0] + major * np.cos(angle)
-                Node_x1_y = center[1] + major * np.sin(angle)
-                Node_x2_x = center[0] - major * np.cos(angle)
-                Node_x2_y = center[1] - major * np.sin(angle)
-                plt.plot(
+            Node_x1_x = center[0] + major * np.cos(angle)
+            Node_x1_y = center[1] + major * np.sin(angle)
+            Node_x2_x = center[0] - major * np.cos(angle)
+            Node_x2_y = center[1] - major * np.sin(angle)
+            plt.plot(
+                    [Node_x1_x, Node_x2_x],
+                    [Node_x1_y, Node_x2_y],
+                    lw=minor+1,
+                    solid_capstyle="round",
+                    color = "#5d5d5d",
+                    alpha = 0.5
+            )
+            plt.plot(
                     [Node_x1_x, Node_x2_x],
                     [Node_x1_y, Node_x2_y],
                     lw=minor,
                     solid_capstyle="round",
-                    color = clr[indx]
-                )
-
-    patch_0 = mpatches.Patch(color=clr[0], label=tool[0])
-    patch_1 = mpatches.Patch(color=clr[1], label=tool[1])
-    patch_2 = mpatches.Patch(color=clr[2], label=tool[2])
-    patch_3 = mpatches.Patch(color=clr[3], label=tool[3])
-    plt.suptitle("Bacteria in TimeStep "+ str(t)+ "\n(" + dataset + " (With Ilastik))", fontsize=14, fontweight="bold")
-    plt.legend(handles=[patch_0,patch_1,patch_2,patch_3])
+                    color = clr[indx],
+                    alpha = 0.5
+            )
+    if mode_title == "With Ilastik":
+        patch_0 = mpatches.Patch(color=clr[0], label=tool[0])
+        patch_1 = mpatches.Patch(color=clr[1], label=tool[1])
+        patch_2 = mpatches.Patch(color=clr[2], label=tool[2])
+        patch_3 = mpatches.Patch(color=clr[3], label=tool[3])
+        plt.legend(handles=[patch_0,patch_1,patch_2,patch_3])
+    else:
+        patch_0 = mpatches.Patch(color=clr[0], label=tool[0])
+        patch_1 = mpatches.Patch(color=clr[1], label=tool[1])
+        patch_2 = mpatches.Patch(color=clr[2], label=tool[2])
+        plt.legend(handles=[patch_0,patch_1,patch_2])
+    plt.suptitle("Bacteria in TimeStep "+ str(t)+ "\n(" + dataset + " ("+mode_title+")", fontsize=14, fontweight="bold")
     ax.set_ylim(ax.get_ylim()[::-1])
-    plt.show()
+    #plt.show()
     fig.savefig(
-         "../img/" + "Bacteria in TimeStep "+ str(t)+ "_" + dataset + " (With Ilastik).png",
+         "../img/"+dataset+"/" +mode_title+"/"+ "Bacteria in TimeStep "+ str(t)+ "_" + dataset + " ("+mode_title+").png",
         dpi=600,
     )
     # close fig
@@ -95,42 +100,45 @@ def bac_info(bac_in_timestep):
 
 
 def Overlapping_Bacteria(end_of_file_name,Tools_name,datasets,main_directories,
-        plot_titles,t):
+        plot_titles,modes,modes_title):
+
 
     for dataset in datasets:
+        for mode in modes:
         # read csv files
             CP_csv_file = (
                 main_directories["CP_directory"]
                 + dataset
-                + "/2. Ilastik Output/post-processing/results/"
+                + "/"+mode+"/post-processing/results/"
                 + Tools_name[0]
                 + "_"
                 + end_of_file_name
                 + ".csv"
             )
+            """
             DeLTA_csv_file = (
                     main_directories["DeLTA_directory"]
                     + dataset
-                    + "/2. Ilastik Output/post-processing/results/"
+                    + "/"+mode+"/post-processing/results/"
                     + Tools_name[1]
                     + "_"
                     + end_of_file_name
                     + ".csv"
             )
+            """
             FAST_csv_file = (
                 main_directories["FAST_directory"]
                 + dataset
-                + "/2. Ilastik Output/post-processing/results/"
+                + "/"+mode+"/post-processing/results/"
                 + Tools_name[2]
                 + "_"
                 + end_of_file_name
                 + ".csv"
             )
-            if dataset !='Schnitzcells sample images set':
-                Oufti_csv_file = (
+            Oufti_csv_file = (
                     main_directories["Oufti_directory"]
                     + dataset
-                    + "/2. Ilastik Output/post-processing/results/"
+                    + "/"+mode+"/post-processing/results/"
                     + Tools_name[3]
                     + "_"
                     + end_of_file_name
@@ -139,7 +147,7 @@ def Overlapping_Bacteria(end_of_file_name,Tools_name,datasets,main_directories,
             SuperSegger_csv_file = (
                 main_directories["SuperSegger_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
+                + "/"+mode+"/post-processing/results/"
                 + Tools_name[4]
                 + "_"
                 + end_of_file_name
@@ -147,24 +155,32 @@ def Overlapping_Bacteria(end_of_file_name,Tools_name,datasets,main_directories,
             )
             # read csv file
             df_cp = pd.read_csv(CP_csv_file)
-            df_delta = pd.read_csv(DeLTA_csv_file)
+            #df_delta = pd.read_csv(DeLTA_csv_file)
             df_fast = pd.read_csv(FAST_csv_file)
             if dataset !='Schnitzcells sample images set':
                 df_oufti = pd.read_csv(Oufti_csv_file)
             df_supersegger = pd.read_csv(SuperSegger_csv_file)       
 
+                # time steps
+            t = list(set(df_cp['TimeStep'].values))
             for TimeStep in t:
                 df_cp_t = df_cp.loc[df_cp["TimeStep"] == TimeStep]
-                df_delta_t = df_delta.loc[df_delta["TimeStep"] == TimeStep]
+                #df_delta_t = df_delta.loc[df_delta["TimeStep"] == TimeStep]
                 df_fast_t = df_fast.loc[df_fast["TimeStep"] == TimeStep]
-                if dataset !='Schnitzcells sample images set':
-                    df_oufti_t = df_oufti.loc[df_oufti["TimeStep"] == TimeStep]
+                df_oufti_t = df_oufti.loc[df_oufti["TimeStep"] == TimeStep]
                 df_supersegger_t = df_supersegger.loc[df_supersegger["TimeStep"] == TimeStep]
                 # plot
-                bc_df = [df_cp_t,df_fast_t,df_delta_t,df_supersegger_t]
-                color = ["red","black","green","blue"]
-                Tool = ["CP","FAST","DeLTA","SuperSegger"]
-                plot(bc_df,TimeStep,Tool,color,dataset)
+                if mode == "2. Ilastik Output":
+                    bc_df = [df_cp_t,df_oufti_t,df_fast_t,df_supersegger_t]
+                    color = ["red","yellow","green","blue"]
+                    Tool = ["CP","Oufti","FAST","SuperSegger"]
+                    plot(bc_df,TimeStep,Tool,color,dataset,modes_title[mode])
+                else:
+
+                    bc_df = [df_cp_t,df_oufti_t,df_supersegger_t]
+                    color = ["red","yellow","blue"]
+                    Tool = ["CP","Oufti","SuperSegger"]
+                    plot(bc_df,TimeStep,Tool,color,dataset,modes_title[mode])                    
                 #plot(df_delta,TimeStep,"DeLTA")
                 #plot(df_oufti,TimeStep,"Oufti")
 
@@ -182,8 +198,12 @@ if __name__ == "__main__":
 
     # datasets
     datasets = [
-        "SuperSegger sample images set",
+        "Mono Culture",
+        "SuperSegger sample images set"
     ]
+    
+    modes = ["1. Raw Images", "2. Ilastik Output"]
+    modes_title = {"1. Raw Images":"Without Ilastik", "2. Ilastik Output":"With Ilastik"}
 
     # titles
     plot_titles = ["bacteria"]
@@ -193,9 +213,6 @@ if __name__ == "__main__":
 
     Tools_name = ["CP", "DeLTA", "FAST", "Oufti", "SuperSegger"]
 
-    #time Step
-    t = [1,2,5,10]
-
     # life history based distribution
     Overlapping_Bacteria(
         end_of_file_name,
@@ -203,6 +220,7 @@ if __name__ == "__main__":
         datasets,
         main_directories,
         plot_titles,
-        t
+        modes,
+        modes_title
     )
 
