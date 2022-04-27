@@ -21,7 +21,7 @@ def plot(
 ):
 
     fig, ax = plt.subplots()
-    if plot_title in ["distribution of life history for each cell","detected cell division in cells lineage"]:
+    if plot_title in ["distribution of life history for each object","Detected divisions in object lineage"]:
         min_val = np.round(min_val)
         max_val = np.round(max_val)+1
         num_bins = int(max_val - min_val)
@@ -69,7 +69,7 @@ def plot(
     # bins
     bins_str = []
 
-    if plot_title in ["distribution of life history for each cell","detected cell division in cells lineage"]:
+    if plot_title in ["distribution of life history for each object","Detected divisions in object lineage"]:
         for i in range(len(a_bins) - 1):
                 bins_str.append(
                     str(int(a_bins[i]))
@@ -514,30 +514,30 @@ if __name__ == "__main__":
     # titles
     plot_titles = {
         "features_lifehistory_based": {
-            "birthLength": "birth length distribution",
+            "birthLength": "Birth length distribution",
             "LifeHistory": "distribution of life history for each object",
             "GrowthRate": "distribution of growth rate",
-            "AverageVelocity": "velocity of bacteria in their life history",
+            "AverageVelocity": "Velocity of bacteria in their life history",
             "AverageLength": "distribution of length in life history",
         },
         "feature_lineage_based": {
-            "NumberOfDivision": "detected object division in cells lineage"
+            "NumberOfDivision": "Detected divisions in object lineage"
         },
         "feature_bac_feature": {
-            "Orientation": "orientation of bacteria in each time step "
+            "Orientation": "Orientation of bacteria in each time step "
         },
         "feature_timeStep_based": {
-            "NumberOfCells": "number of cells in each time step"
+            "NumberOfCells": "Number of objects in each time step"
         },
     }
 
-    plot_x_lable = {"birth length distribution": "Length (Pixel)",
+    plot_x_lable = {"Birth length distribution": "Length (Pixel)",
                     "distribution of life history for each object": "Life History",
                     "distribution of growth rate": "Growth Rate",
-                    "velocity of bacteria in their life history":"velocity",
+                    "Velocity of bacteria in their life history":"velocity",
                     "distribution of length in life history": "Length (Pixel)",
-                    "detected object division in cells lineage": "Number of object division",
-                    "orientation of bacteria in each time step ": "Orientation (degree)"}
+                    "Detected divisions in object lineage": "Number of object division",
+                    "Orientation of bacteria in each time step ": "Orientation (degree)"}
 
     # end of file names
     end_of_file_names = {
