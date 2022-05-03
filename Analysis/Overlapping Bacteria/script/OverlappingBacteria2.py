@@ -38,6 +38,7 @@ def plot_fast(bc_df,t,tool,clr,dataset,mode_title):
             Node_x1_y = center[1] + major * np.sin(angle)
             Node_x2_x = center[0] - major * np.cos(angle)
             Node_x2_y = center[1] - major * np.sin(angle)
+            print([Node_x1_x,Node_x1_y,Node_x2_x,Node_x2_y])
             plt.plot(
                     [Node_x1_x, Node_x2_x],
                     [Node_x1_y, Node_x2_y],
@@ -133,19 +134,19 @@ def plot(bc_df,t,tool,clr,dataset,mode_title):
                     color = clr[indx],
                     alpha = 0.5
             )
-    if mode_title == "With Ilastik":
-        patch_0 = mpatches.Patch(color=clr[0], label=tool[0])
-        patch_1 = mpatches.Patch(color=clr[1], label=tool[1])
-        patch_2 = mpatches.Patch(color=clr[2], label=tool[2])
-        patch_3 = mpatches.Patch(color=clr[3], label=tool[3])
-        patch_4 = mpatches.Patch(color=clr[4], label=tool[4])
-        plt.legend(handles=[patch_0,patch_1,patch_2,patch_3,patch_4],loc='upper right', ncol=5, bbox_to_anchor=(1.09, 1.09))
-    else:
-        patch_0 = mpatches.Patch(color=clr[0], label=tool[0])
-        patch_1 = mpatches.Patch(color=clr[1], label=tool[1])
-        patch_2 = mpatches.Patch(color=clr[2], label=tool[2])
-        patch_3 = mpatches.Patch(color=clr[3], label=tool[3])
-        plt.legend(handles=[patch_0,patch_1,patch_2,patch_3],loc='upper right', ncol=5, bbox_to_anchor=(1.01, 1.09))
+    #if mode_title == "With Ilastik":
+    #    patch_0 = mpatches.Patch(color=clr[0], label=tool[0])
+    #    patch_1 = mpatches.Patch(color=clr[1], label=tool[1])
+    #    patch_2 = mpatches.Patch(color=clr[2], label=tool[2])
+    #    patch_3 = mpatches.Patch(color=clr[3], label=tool[3])
+    #    patch_4 = mpatches.Patch(color=clr[4], label=tool[4])
+    #    plt.legend(handles=[patch_0,patch_1,patch_2,patch_3,patch_4],loc='upper right', ncol=5, bbox_to_anchor=(1.09, 1.09))
+    #else:
+    patch_0 = mpatches.Patch(color=clr[0], label=tool[0])
+    patch_1 = mpatches.Patch(color=clr[1], label=tool[1])
+    patch_2 = mpatches.Patch(color=clr[2], label=tool[2])
+    patch_3 = mpatches.Patch(color=clr[3], label=tool[3])
+    plt.legend(handles=[patch_0,patch_1,patch_2,patch_3],loc='upper right', ncol=5, bbox_to_anchor=(1.01, 1.09))
     plt.suptitle("Objects in TimeStep "+ str(t), fontsize=14, fontweight="bold")
     ax.set_ylim(ax.get_ylim()[::-1])
     # plt.show()
@@ -201,15 +202,15 @@ def Overlapping_Objects(end_of_file_name,Tools_name,datasets,main_directories,
                     + end_of_file_name
                     + ".csv"
             )
-            FAST_csv_file = (
-                main_directories["FAST_directory"]
-                + dataset
-                + "/"+mode+"/post-processing/results/"
-                + Tools_name[2]
-                + "_"
-                + end_of_file_name
-                + ".csv"
-            )
+            #FAST_csv_file = (
+            #    main_directories["FAST_directory"]
+            #    + dataset
+            #    + "/"+mode+"/post-processing/results/"
+            #    + Tools_name[2]
+            #    + "_"
+            #    + end_of_file_name
+            #    + ".csv"
+            #)
             Oufti_csv_file = (
                     main_directories["Oufti_directory"]
                     + dataset
@@ -231,10 +232,9 @@ def Overlapping_Objects(end_of_file_name,Tools_name,datasets,main_directories,
             # read csv file
             df_cp = pd.read_csv(CP_csv_file)
             df_delta = pd.read_csv(DeLTA_csv_file)
-            df_fast = pd.read_csv(FAST_csv_file)
-            df_fast = df_fast.loc[df_fast["Major_axis"].notnull()]
-            if dataset !='Schnitzcells sample images set':
-                df_oufti = pd.read_csv(Oufti_csv_file)
+            #df_fast = pd.read_csv(FAST_csv_file)
+            #df_fast = df_fast.loc[df_fast["Major_axis"].notnull()]
+            df_oufti = pd.read_csv(Oufti_csv_file)
             df_supersegger = pd.read_csv(SuperSegger_csv_file)       
 
                 # time steps
@@ -242,24 +242,24 @@ def Overlapping_Objects(end_of_file_name,Tools_name,datasets,main_directories,
             for TimeStep in t:
                 df_cp_t = df_cp.loc[df_cp["TimeStep"] == TimeStep]
                 df_delta_t = df_delta.loc[df_delta["TimeStep"] == TimeStep]
-                df_fast_t = df_fast.loc[df_fast["TimeStep"] == TimeStep]
+                #df_fast_t = df_fast.loc[df_fast["TimeStep"] == TimeStep]
                 df_oufti_t = df_oufti.loc[df_oufti["TimeStep"] == TimeStep]
                 df_supersegger_t = df_supersegger.loc[df_supersegger["TimeStep"] == TimeStep]
                 # plot
-                if mode == "2. Ilastik Output":
-                    bc_df = [df_cp_t,df_oufti_t,df_fast_t,df_delta_t,df_supersegger_t]
-                    color = ["yellow","red","#00ff00","black","blue"]
-                    Tool = ["CellProfiler","Oufti","FAST","DeLTA","SuperSegger"]
-                    plot(bc_df,TimeStep,Tool,color,dataset,modes_title[mode])
-                else:
+                #if mode == "2. Ilastik Output":
+                #    bc_df = [df_cp_t,df_oufti_t,df_fast_t,df_delta_t,df_supersegger_t]
+                #    color = ["yellow","red","#00ff00","black","blue"]
+                #    Tool = ["CellProfiler","Oufti","FAST","DeLTA","SuperSegger"]
+                #    plot(bc_df,TimeStep,Tool,color,dataset,modes_title[mode])
+                #else:
 
-                    bc_df = [df_cp_t,df_oufti_t,df_delta_t,df_supersegger_t]
+                bc_df = [df_cp_t,df_oufti_t,df_delta_t,df_supersegger_t]
                     #bc_df = [df_delta_t]
                     #color = ["red"]
                     #Tool = ["DeLTA"]
-                    color = ["yellow","red","black","blue"]
-                    Tool = ["CellProfiler","Oufti","DeLTA","SuperSegger"]
-                    plot(bc_df,TimeStep,Tool,color,dataset,modes_title[mode])
+                color = ["yellow","red","black","blue"]
+                Tool = ["CellProfiler","Oufti","DeLTA","SuperSegger"]
+                plot(bc_df,TimeStep,Tool,color,dataset,modes_title[mode])
                     #plot_fast([df_fast_t],TimeStep,["FAST"],["#00ff00"],dataset,modes_title[mode])
                 #plot(df_delta,TimeStep,"DeLTA")
                 #plot(df_oufti,TimeStep,"Oufti")
@@ -277,11 +277,15 @@ if __name__ == "__main__":
     }
 
     # datasets
+    # E.coli_mono_agarose_noisy
+    #"Pseudomonas_agarose"
+    #        "Xanthomonase_agarose"
+    # xanthomonas microfluidic each3 min-01-Image Export-02
     datasets = [
-        "SuperSegger sample images set"
+        "E.coli_mono_agarose_noisy"
     ]
-    modes = ["1. Raw images","2. Ilastik Output"]
-    modes_title = {"1. Raw images":"Without Ilastik", "2. Ilastik Output":"With Ilastik"}
+    modes = ["1. Raw images", "2. Ilastik Output"]
+    modes_title = { "1. Raw images":"Without Ilastik", "2. Ilastik Output":"With Ilastik"}
 
     # titles
     plot_titles = ["Objects"]

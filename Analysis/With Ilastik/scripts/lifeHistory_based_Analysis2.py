@@ -8,6 +8,7 @@ def plot_subplots(
     df2,
     df3,
     df4,
+    df5,
     dataset,
     plot_title,
     min_val,
@@ -29,11 +30,14 @@ def plot_subplots(
         c_heights, c_bins = np.histogram(df3, bins=num_bins, range=(df3.values.min(), df3.values.max()+1))
         num_bins = int((df4.values.max()+1)-(df4.values.min()))
         d_heights, d_bins = np.histogram(df4, bins=num_bins, range=(df4.values.min(), df4.values.max()+1))
+        num_bins = int((df4.values.max()+1)-(df4.values.min()))
+        e_heights, e_bins = np.histogram(df5, bins=num_bins, range=(df5.values.min(), df5.values.max()+1))
     else:
         a_heights, a_bins = np.histogram(df1, bins=num_bins, range=(df1.values.min(), df1.values.max()+1))
         b_heights, b_bins = np.histogram(df2, bins=num_bins, range=(df2.values.min(), df2.values.max()+1))
         c_heights, c_bins = np.histogram(df3, bins=num_bins, range=(df3.values.min(), df3.values.max()+1))
-        d_heights, d_bins = np.histogram(df4, bins=num_bins, range=(df4.values.min(), df4.values.max()+1))        
+        d_heights, d_bins = np.histogram(df4, bins=num_bins, range=(df4.values.min(), df4.values.max()+1))
+        e_heights, e_bins = np.histogram(df5, bins=num_bins, range=(df5.values.min(), df5.values.max()+1))        
 
     ax[0,0].bar(
         a_bins[:-1],
@@ -53,26 +57,33 @@ def plot_subplots(
     )
     ax[0,1].legend(loc='upper right', prop={'size': 8})
     
-    
     ax[1,0].bar(
-            c_bins[:-1],
-            c_heights,
-            facecolor="red",
-            width=(c_bins[1] - c_bins[0]) / 5,
-            label=Tools_name[2],
+        c_bins[:-1],
+        c_heights,
+        facecolor="#00ff00",
+        width=(c_bins[1] - c_bins[0]) / 5,
+        label=Tools_name[2],
     )
     ax[1,0].legend(loc='upper right', prop={'size': 8})
     
     ax[1,1].bar(
-        d_bins[:-1],
-        d_heights,
-        facecolor="blue",
-        width=(d_bins[1] - d_bins[0]) / 5,
-        label=Tools_name[3],
+            d_bins[:-1],
+            d_heights,
+            facecolor="red",
+            width=(d_bins[1] - d_bins[0]) / 5,
+            label=Tools_name[3],
     )
     ax[1,1].legend(loc='upper right', prop={'size': 8})
+    
+    ax[2,0].bar(
+        e_bins[:-1],
+        e_heights,
+        facecolor="blue",
+        width=(e_bins[1] - e_bins[0]) / 5,
+        label=Tools_name[4],
+    )
+    ax[2,0].legend(loc='upper right', prop={'size': 8})
     #print(ax)
-    fig.delaxes(ax[2,0])
     fig.delaxes(ax[2,1])
 
     # bins
@@ -80,6 +91,7 @@ def plot_subplots(
     bins_str_1 = []
     bins_str_2 = []
     bins_str_3 = []
+    bins_str_4 = []
 
     if plot_title in ["distribution of life history for each object","Detected divisions in object lineage"]:
         for i in range(len(a_bins) - 1):
@@ -98,7 +110,10 @@ def plot_subplots(
                     bins_str_3.append(
                         str(int(d_bins[i]))
                     )
-
+        for i in range(len(e_bins) - 1):
+                    bins_str_4.append(
+                        str(int(e_bins[i]))
+                    )
     else:
         for i in range(len(a_bins) - 1):
                     bins_str_0.append(
@@ -115,7 +130,11 @@ def plot_subplots(
         for i in range(len(d_bins) - 1):
                     bins_str_3.append(
                         str(np.round(d_bins[i], 2)) + "-" + str(np.round(d_bins[i + 1], 2))
-                    )               
+                    )
+        for i in range(len(e_bins) - 1):
+                    bins_str_4.append(
+                        str(np.round(e_bins[i], 2)) + "-" + str(np.round(e_bins[i + 1], 2))
+                    )                
                     
     plt.sca(ax[0, 0])
     plt.xticks(
@@ -145,13 +164,20 @@ def plot_subplots(
     plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0))
     ax[1, 1].yaxis.get_offset_text().set_fontsize(8)
 
+    plt.sca(ax[2, 0])                
+    plt.xticks(
+        ticks=e_bins[: len(e_bins) - 1], labels=bins_str_4, rotation=90, fontsize=2
+    )
+    plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0))
+    ax[2 , 0].yaxis.get_offset_text().set_fontsize(8)
     
     fig.subplots_adjust(bottom=0.5)
     plt.suptitle(plot_title, fontsize=14, fontweight="bold")
     ax[0,0].set_ylabel(y_lable,fontsize=6)
     ax[1,0].set_ylabel(y_lable,fontsize=6)
     ax[1,1].set_xlabel(x_lable,fontsize=6)
-    ax[2,0].set_xlabel(x_lable,fontsize=6)    
+    ax[2,0].set_xlabel(x_lable,fontsize=6)
+    ax[2,0].set_ylabel(y_lable,fontsize=6)    
     #plt.legend()
     # set the spacing between subplots
     plt.subplots_adjust(left=0.1,
@@ -163,7 +189,7 @@ def plot_subplots(
 
     
     #plt.show()
-    fig.savefig("../plots/" +dataset+"/"+ plot_title + "_" + dataset+"_WithoutIlastik_subplots" + ".png", dpi=1200)
+    fig.savefig("../plots/" +dataset+"/"+ plot_title + "_" + dataset+"_WithIlastik_subplots" + ".png", dpi=1200)
     # close fig
     fig.clf()
     plt.close()
@@ -177,6 +203,7 @@ def plot(
     df2,
     df3,
     df4,
+    df5,
     dataset,
     plot_title,
     min_val,
@@ -199,6 +226,7 @@ def plot(
     b_heights, b_bins = np.histogram(df2, bins=num_bins, range=(min_val, max_val))
     c_heights, c_bins = np.histogram(df3, bins=num_bins, range=(min_val, max_val))
     d_heights, d_bins = np.histogram(df4, bins=num_bins, range=(min_val, max_val))
+    e_heights, e_bins = np.histogram(df5, bins=num_bins, range=(min_val, max_val))
     width = (a_bins[1] - a_bins[0]) / 5
 
     ax.bar(a_bins[:-1], a_heights, width=width, facecolor="yellow", label=Tools_name[0])
@@ -214,17 +242,23 @@ def plot(
         c_bins[:-1] + 2 * width,
         c_heights,
         width=width,
-        facecolor="red",
+        facecolor="#00ff00",
         label=Tools_name[2],
     )
     ax.bar(
             d_bins[:-1] + 3 * width,
             d_heights,
             width=width,
-            facecolor="blue",
+            facecolor="red",
             label=Tools_name[3],
     )
-
+    ax.bar(
+        e_bins[:-1] + 4 * width,
+        e_heights,
+        width=width,
+        facecolor="blue",
+        label=Tools_name[4],
+    )
     plt.grid(False, axis="x")
 
     # bins
@@ -250,7 +284,7 @@ def plot(
     ax.set_ylabel(y_lable)
     plt.legend()
     # plt.show()
-    fig.savefig("../plots/" +dataset+"/"+ plot_title + "_" + dataset+"_WithoutIlastik" + ".png", dpi=1200)
+    fig.savefig("../plots/" +dataset+"/"+ plot_title + "_" + dataset+"_WithIlastik" + ".png", dpi=1200)
     # close fig
     fig.clf()
     plt.close()
@@ -265,7 +299,7 @@ def life_history_based_distribution(
             CP_csv_file = (
                 main_directories["CP_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[0]
                 + "_"
                 + end_of_file_name
@@ -274,18 +308,26 @@ def life_history_based_distribution(
             DeLTA_csv_file = (
                     main_directories["DeLTA_directory"]
                     + dataset
-                    + "/1. Raw Images/post-processing/results/"
+                    + "/2. Ilastik Output/post-processing/results/"
                     + Tools_name[1]
                     + "_"
                     + end_of_file_name
                     + ".csv"
             )
-
+            FAST_csv_file = (
+                main_directories["FAST_directory"]
+                + dataset
+                + "/2. Ilastik Output/post-processing/results/"
+                + Tools_name[2]
+                + "_"
+                + end_of_file_name
+                + ".csv"
+            )
             Oufti_csv_file = (
                     main_directories["Oufti_directory"]
                     + dataset
-                    + "/1. Raw Images/post-processing/results/"
-                    + Tools_name[2]
+                    + "/2. Ilastik Output/post-processing/results/"
+                    + Tools_name[3]
                     + "_"
                     + end_of_file_name
                     + ".csv"
@@ -293,8 +335,8 @@ def life_history_based_distribution(
             SuperSegger_csv_file = (
                 main_directories["SuperSegger_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
-                + Tools_name[3]
+                + "/2. Ilastik Output/post-processing/results/"
+                + Tools_name[4]
                 + "_"
                 + end_of_file_name
                 + ".csv"
@@ -320,7 +362,16 @@ def life_history_based_distribution(
             max_val = q75+(1.5*intr_qr)
             min_val = q25-(1.5*intr_qr)
             df_delta = df_delta.loc[(df_delta[str(feature)] >= min_val) & (df_delta[str(feature)]<= max_val)]
-
+            
+            df_fast = pd.read_csv(FAST_csv_file, usecols=[str(feature)])
+            # remove nan values
+            df_fast = df_fast.loc[df_fast[str(feature)].notnull()]
+            # remove outliers
+            q75,q25 = np.percentile(df_fast.loc[:,str(feature)],[75,25])
+            intr_qr = q75-q25
+            max_val = q75+(1.5*intr_qr)
+            min_val = q25-(1.5*intr_qr)
+            df_fast = df_fast.loc[(df_fast[str(feature)] >= min_val) & (df_fast[str(feature)]<= max_val)]
             
             df_oufti = pd.read_csv(Oufti_csv_file, usecols=[str(feature)])
             # remove nan values
@@ -346,18 +397,21 @@ def life_history_based_distribution(
             max_val = max(
                     df_cp.values.max(),
                     df_delta.values.max(),
+                    df_fast.values.max(),
                     df_oufti.values.max(),
                     df_supersegger.values.max(),
             )
             min_val = min(
                     df_cp.values.min(),
                     df_delta.values.min(),
+                    df_fast.values.min(),
                     df_oufti.values.min(),
                     df_supersegger.values.min(),
             )
             plot(
                     df_cp,
                     df_delta,
+                    df_fast,
                     df_oufti,
                     df_supersegger,
                     dataset,
@@ -373,6 +427,7 @@ def life_history_based_distribution(
             plot_subplots(
                     df_cp,
                     df_delta,
+                    df_fast,
                     df_oufti,
                     df_supersegger,
                     dataset,
@@ -396,7 +451,7 @@ def lineage_based_distribution(
             CP_csv_file = (
                 main_directories["CP_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[0]
                 + "_"
                 + end_of_file_name
@@ -405,18 +460,26 @@ def lineage_based_distribution(
             DeLTA_csv_file = (
                 main_directories["DeLTA_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[1]
                 + "_"
                 + end_of_file_name
                 + ".csv"
             )
-
+            FAST_csv_file = (
+                main_directories["FAST_directory"]
+                + dataset
+                + "/2. Ilastik Output/post-processing/results/"
+                + Tools_name[2]
+                + "_"
+                + end_of_file_name
+                + ".csv"
+            )
             Oufti_csv_file = (
                     main_directories["Oufti_directory"]
                     + dataset
-                    + "/1. Raw Images/post-processing/results/"
-                    + Tools_name[2]
+                    + "/2. Ilastik Output/post-processing/results/"
+                    + Tools_name[3]
                     + "_"
                     + end_of_file_name
                     + ".csv"
@@ -424,8 +487,8 @@ def lineage_based_distribution(
             SuperSegger_csv_file = (
                 main_directories["SuperSegger_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
-                + Tools_name[3]
+                + "/2. Ilastik Output/post-processing/results/"
+                + Tools_name[4]
                 + "_"
                 + end_of_file_name
                 + ".csv"
@@ -438,7 +501,11 @@ def lineage_based_distribution(
             df_delta = pd.read_csv(DeLTA_csv_file, usecols=[str(feature)])
             # remove nan values
             df_delta = df_delta.loc[df_delta[str(feature)].notnull()]
-
+            
+            df_fast = pd.read_csv(FAST_csv_file, usecols=[str(feature)])
+            # remove nan values
+            df_fast = df_fast.loc[df_fast[str(feature)].notnull()]
+            
             df_oufti = pd.read_csv(Oufti_csv_file, usecols=[str(feature)])
             # remove nan values
             df_oufti = df_oufti.loc[df_oufti[str(feature)].notnull()]
@@ -451,18 +518,21 @@ def lineage_based_distribution(
             max_val = max(
                     df_cp.values.max(),
                     df_delta.values.max(),
+                    df_fast.values.max(),
                     df_oufti.values.max(),
                     df_supersegger.values.max(),
             )
             min_val = min(
                     df_cp.values.min(),
                     df_delta.values.min(),
+                    df_fast.values.min(),
                     df_oufti.values.min(),
                     df_supersegger.values.min(),
                 )
             plot(
                     df_cp,
                     df_delta,
+                    df_fast,
                     df_oufti,
                     df_supersegger,
                     dataset,
@@ -478,6 +548,7 @@ def lineage_based_distribution(
             plot_subplots(
                     df_cp,
                     df_delta,
+                    df_fast,
                     df_oufti,
                     df_supersegger,
                     dataset,
@@ -499,7 +570,7 @@ def timestep_based_distribution(
             CP_csv_file = (
                 main_directories["CP_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[0]
                 + "_"
                 + end_of_file_name
@@ -508,18 +579,26 @@ def timestep_based_distribution(
             DeLTA_csv_file = (
                 main_directories["DeLTA_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[1]
                 + "_"
                 + end_of_file_name
                 + ".csv"
             )
-
+            FAST_csv_file = (
+                main_directories["FAST_directory"]
+                + dataset
+                + "/2. Ilastik Output/post-processing/results/"
+                + Tools_name[2]
+                + "_"
+                + end_of_file_name
+                + ".csv"
+            )
             Oufti_csv_file = (
                     main_directories["Oufti_directory"]
                     + dataset
-                    + "/1. Raw Images/post-processing/results/"
-                    + Tools_name[2]
+                    + "/2. Ilastik Output/post-processing/results/"
+                    + Tools_name[3]
                     + "_"
                     + end_of_file_name
                     + ".csv"
@@ -527,8 +606,8 @@ def timestep_based_distribution(
             SuperSegger_csv_file = (
                 main_directories["SuperSegger_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
-                + Tools_name[3]
+                + "/2. Ilastik Output/post-processing/results/"
+                + Tools_name[4]
                 + "_"
                 + end_of_file_name
                 + ".csv"
@@ -538,6 +617,8 @@ def timestep_based_distribution(
             df_cp = df_cp.rename(columns={str(feature): "CellProfiler"})
             df_delta = pd.read_csv(DeLTA_csv_file, usecols=[str(feature)])
             df_delta = df_delta.rename(columns={str(feature): "DeLTA"})
+            df_fast = pd.read_csv(FAST_csv_file, usecols=[str(feature)])
+            df_fast = df_fast.rename(columns={str(feature): "FAST"})
             df_oufti = pd.read_csv(Oufti_csv_file, usecols=[str(feature)])
             df_oufti = df_oufti.rename(columns={str(feature): "Oufti"})
             df_supersegger = pd.read_csv(SuperSegger_csv_file, usecols=[str(feature)])
@@ -559,10 +640,10 @@ def timestep_based_distribution(
                     end = (end_index)*num_timesteps - 1
                 if i==5:
                     end = len(df_cp)-1
-                df = pd.concat([df_cp.loc[start:end], df_delta.loc[start:end],df_oufti.loc[start:end], df_supersegger.loc[start:end]], axis=1)
+                df = pd.concat([df_cp.loc[start:end], df_delta.loc[start:end], df_fast.loc[start:end], df_oufti.loc[start:end], df_supersegger.loc[start:end]], axis=1)
                 df.index = np.arange(start+1, end+2)
                 plot1 = df.plot(
-                        ax=ax[row_num,col_num],kind="bar", color=["yellow", "black", "red", "blue"], legend=False
+                        ax=ax[row_num,col_num],kind="bar", color=["yellow", "black", "#00ff00", "red", "blue"], legend=False
                 )
                 if col_num ==0:
                     ax[row_num,col_num].set_ylabel('Number of Objects',fontsize=6)
@@ -598,7 +679,7 @@ def timestep_based_distribution(
             
             #fig = plot.get_figure()
             fig.savefig(
-                    "../plots/" +dataset+"/"+ plot_titles[feature] + "_" + dataset+"_WithoutIlastik" + ".png", dpi=1200
+                    "../plots/" +dataset+"/"+ plot_titles[feature] + "_" + dataset+"_WithIlastik" + ".png", dpi=1200
             )
             # close fig
             fig.clf()
@@ -614,7 +695,7 @@ def bac_feature_distribution(
             CP_csv_file = (
                 main_directories["CP_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
+                + "/2. Ilastik Output/post-processing/results/"
                 + Tools_name[0]
                 + "_"
                 + end_of_file_name
@@ -623,18 +704,26 @@ def bac_feature_distribution(
             DeLTA_csv_file = (
                     main_directories["DeLTA_directory"]
                     + dataset
-                    + "/1. Raw Images/post-processing/results/"
+                    + "/2. Ilastik Output/post-processing/results/"
                     + Tools_name[1]
                     + "_"
                     + end_of_file_name
                     + ".csv"
             )
-
+            FAST_csv_file = (
+                main_directories["FAST_directory"]
+                + dataset
+                + "/2. Ilastik Output/post-processing/results/"
+                + Tools_name[2]
+                + "_"
+                + end_of_file_name
+                + ".csv"
+            )
             Oufti_csv_file = (
                     main_directories["Oufti_directory"]
                     + dataset
-                    + "/1. Raw Images/post-processing/results/"
-                    + Tools_name[2]
+                    + "/2. Ilastik Output/post-processing/results/"
+                    + Tools_name[3]
                     + "_"
                     + end_of_file_name
                     + ".csv"
@@ -642,8 +731,8 @@ def bac_feature_distribution(
             SuperSegger_csv_file = (
                 main_directories["SuperSegger_directory"]
                 + dataset
-                + "/1. Raw Images/post-processing/results/"
-                + Tools_name[3]
+                + "/2. Ilastik Output/post-processing/results/"
+                + Tools_name[4]
                 + "_"
                 + end_of_file_name
                 + ".csv"
@@ -655,6 +744,9 @@ def bac_feature_distribution(
             df_delta = pd.read_csv(DeLTA_csv_file, usecols=[str(feature),'width','height'])
             # remove nan values
             df_delta = df_delta.loc[df_delta[str(feature)].notnull()]
+            df_fast = pd.read_csv(FAST_csv_file, usecols=[str(feature)])
+            # remove nan values
+            df_fast = df_fast.loc[df_fast[str(feature)].notnull()]
             df_oufti = pd.read_csv(Oufti_csv_file, usecols=[str(feature)])
             # remove nan values
             df_oufti = df_oufti.loc[df_oufti[str(feature)].notnull()]
@@ -663,6 +755,7 @@ def bac_feature_distribution(
             df_supersegger = df_supersegger.loc[df_supersegger[str(feature)].notnull()]
             #convert degree to radian
             df_cp = -(df_cp+90) * np.pi / 180
+            df_fast = -(df_fast) * np.pi / 180
             df_oufti = -(df_oufti) * np.pi / 180
             df_supersegger = -(df_supersegger) * np.pi / 180
             # for delta
@@ -677,18 +770,21 @@ def bac_feature_distribution(
             max_val = max(
                     df_cp.values.max(),
                     df_delta.values.max(),
+                    df_fast.values.max(),
                     df_oufti.values.max(),
                     df_supersegger.values.max(),
             )
             min_val = min(
                     df_cp.values.min(),
                     df_delta.values.min(),
+                    df_fast.values.min(),
                     df_oufti.values.min(),
                     df_supersegger.values.min(),
             )
             plot(
                     df_cp,
                     df_delta,
+                    df_fast,
                     df_oufti,
                     df_supersegger,
                     dataset,
@@ -704,6 +800,7 @@ def bac_feature_distribution(
             plot_subplots(
                     df_cp,
                     df_delta,
+                    df_fast,
                     df_oufti,
                     df_supersegger,
                     dataset,
@@ -730,10 +827,9 @@ if __name__ == "__main__":
     }
 
     # datasets
+    #"SuperSegger sample images set"
     datasets = [
-        "Pseudomonas_agarose",
-        "Xanthomonase_agarose",
-        "E.coli_mono_agarose_noisy"
+        "E.coli_mono_agarose"
     ]
 
     # features
@@ -784,7 +880,7 @@ if __name__ == "__main__":
         "feature_bac_feature": "bacteria_feature_analysis",
         "feature_timeStep_based": "Num_cells_in_each_timeStep",
     }
-    Tools_name = ["CellProfiler", "DeLTA", "Oufti", "SuperSegger"]
+    Tools_name = ["CellProfiler", "DeLTA", "FAST", "Oufti", "SuperSegger"]
 
     # timestep_based
     timestep_based_distribution(
