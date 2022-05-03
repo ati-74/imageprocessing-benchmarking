@@ -1,0 +1,41 @@
+{
+    "presets": "2D",
+    "models": [
+        "segmentation",
+        "tracking"
+    ],
+    "model_file_rois": "",
+    "model_file_seg": "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python39\\lib\\site-packages\\delta\\assets\\models\\unet_pads_seg.hdf5",
+    "model_file_track": "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python39\\lib\\site-packages\\delta\\assets\\models\\unet_pads_track.hdf5",
+    "target_size_rois": [
+        512,
+        512
+    ],
+    "target_size_seg": [
+        512,
+        512
+    ],
+    "target_size_track": [
+        256,
+        256
+    ],
+    "training_set_rois": "",
+    "training_set_seg": "D:/DeLTA_data/agar_pads/train/seg/",
+    "training_set_track": "D:/DeLTA_data/agar_pads/train/track/",
+    "eval_movie": "D:/DeLTA_data/agar_pads/eval_movie/tifs/",
+    "rotation_correction": false,
+    "drift_correction": false,
+    "crop_windows": true,
+    "min_roi_area": 500,
+    "whole_frame_drift": false,
+    "min_cell_area": 20,
+    "save_format": [
+        "pickle",
+        "legacy",
+        "movie"
+    ],
+    "TF_CPP_MIN_LOG_LEVEL": "2",
+    "memory_growth_limit": null,
+    "pipeline_seg_batch": 64,
+    "pipeline_track_batch": 64
+}
