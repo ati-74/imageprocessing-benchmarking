@@ -1,16 +1,16 @@
-dataset,mode,Number_of_incorrect_tracking
-"E.coli_chamber","1. Raw Images",33193
-"E.coli_mono_agarose","1. Raw Images",2683
-"E.coli_mono_agarose","2. Ilastik Output",5393
-"E.coli_mono_agarose_noisy","1. Raw Images",3838
-"E.coli_mono_agarose_skipTimeSteps","2. Ilastik Output",1114
-"Pseudomonas_agarose","1. Raw Images",938
-"Pseudomonas_agarose","2. Ilastik Output",2378
-"Pseudomonas_chamber","1. Raw Images",5005
-"Pseudomonas_chamber","2. Ilastik Output",4905
-"SuperSegger sample images set","1. Raw Images",25
-"SuperSegger sample images set","2. Ilastik Output",40
-"Xanthomonase_agarose","1. Raw Images",6766
-"Xanthomonase_agarose","2. Ilastik Output",7675
-"Xanthomonase_chamber","1. Raw Images",17903
-"Xanthomonase_chamber","2. Ilastik Output",28017
+dataset,mode,Number_of_incorrect_tracking,duplicate_daughter
+"E.coli_chamber","1. Raw Images",33193,0
+"E.coli_mono_agarose","1. Raw Images",2683,0
+"E.coli_mono_agarose","2. Ilastik Output",5393,0
+"E.coli_mono_agarose_noisy","1. Raw Images",3838,0
+"E.coli_mono_agarose_skipTimeSteps","2. Ilastik Output",1114,0
+"Pseudomonas_agarose","1. Raw Images",938,0
+"Pseudomonas_agarose","2. Ilastik Output",2378,0
+"Pseudomonas_chamber","1. Raw Images",5005,0
+"Pseudomonas_chamber","2. Ilastik Output",4905,0
+"SuperSegger sample images set","1. Raw Images",25,0
+"SuperSegger sample images set","2. Ilastik Output",40,0
+"Xanthomonase_agarose","1. Raw Images",6766,0
+"Xanthomonase_agarose","2. Ilastik Output",7675,0
+"Xanthomonase_chamber","1. Raw Images",17903,0
+"Xanthomonase_chamber","2. Ilastik Output",28017,0
