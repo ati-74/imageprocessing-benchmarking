@@ -139,11 +139,11 @@ def correction_transition (df):
         current_timestep_bac = current_timestep_bac.reset_index(drop=True)
 
         # filter current time step sudden bacteria information (bacteria without parent)
-        current_timestep_sudden_bac = df.loc[(df["ImageNumber"] == t) &
-                                             (df["TrackObjects_ParentImageNumber_50"] == 0) &
-                                             (df["drop"] == False)]
-        current_timestep_sudden_bac_index = current_timestep_sudden_bac.index.tolist()
-        current_timestep_sudden_bac  = current_timestep_sudden_bac.reset_index(drop=True)
+        #current_timestep_sudden_bac = df.loc[(df["ImageNumber"] == t) &
+        #                                     (df["TrackObjects_ParentImageNumber_50"] == 0) &
+        #                                     (df["drop"] == False)]
+        #current_timestep_sudden_bac_index = current_timestep_sudden_bac.index.tolist()
+        #current_timestep_sudden_bac  = current_timestep_sudden_bac.reset_index(drop=True)
 
         # filter next time step bacteria information
         next_timestep_bac = df.loc[df["ImageNumber"] == (t+1) & (df["drop"] == False)]
@@ -164,7 +164,7 @@ def correction_transition (df):
             # create distance matrix (rows: next time step sudden bacteria, columns: current time step bacteria)
             distance_df = pd.DataFrame(distance_matrix(next_timestep_sudden_bac[["AreaShape_Center_X","AreaShape_Center_Y"]].values, current_timestep_bac[["AreaShape_Center_X","AreaShape_Center_Y"]].values),
                                            index = next_timestep_sudden_bac_index, columns = current_timestep_bac_index)
-
+            #print(distance_df)
             # find the parent of sudden bacteri in next time step
             for bac_index in range(len(next_timestep_sudden_bac_index.tolist())):
                 correspond_distance_df_row = distance_df.iloc[bac_index].values.tolist()
@@ -176,8 +176,8 @@ def correction_transition (df):
                 while was_parent_found == False and element_index_in_sorted_distance < len(sorted_distance):
                     sorted_distance_bac_index = sorted_distance[element_index_in_sorted_distance][1]
                     # find number of related bacteria to this bacterium in next time step
-                    ParentImageNumber = df.iloc[sorted_distance_bac_index]['TrackObjects_ParentImageNumber_50']
-                    ParentObjectNumber = df.iloc[sorted_distance_bac_index]['TrackObjects_ParentObjectNumber_50']
+                    ParentImageNumber = df.iloc[sorted_distance_bac_index]['ImageNumber']
+                    ParentObjectNumber = df.iloc[sorted_distance_bac_index]['ObjectNumber']
                     related_bac_in_next_timestep = next_timestep_bac.loc[(next_timestep_bac["TrackObjects_ParentImageNumber_50"] == ParentImageNumber) &
                                                                          (next_timestep_bac["TrackObjects_ParentObjectNumber_50"] == ParentObjectNumber)]
                     if related_bac_in_next_timestep.shape[0] != 2:
@@ -253,8 +253,8 @@ def correction_tracking(df):
         df = dropIndex(df)
         # remove 'drop' column
         df.drop('drop', axis=1, inplace=True)
-        df.to_csv('file.csv', sep='\t')
-        print('okeit')
+        df.to_csv('file.csv', sep='\t', index = False)
+        #print('okeit')
         return df
 
     
