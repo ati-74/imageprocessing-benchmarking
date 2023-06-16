@@ -1,0 +1,64 @@
+----------Splitting Operations (Penalty=5)----------
+T=0 Label=2
+T=37 Label=19
+T=38 Label=43
+T=39 Label=32
+T=39 Label=36
+----------False Negative Vertices (Penalty=10)----------
+T=14 GT_label=2
+T=16 GT_label=3
+T=35 GT_label=25
+T=36 GT_label=34
+T=38 GT_label=22
+T=38 GT_label=37
+T=39 GT_label=32
+T=39 GT_label=37
+----------False Positive Vertices (Penalty=1)----------
+T=14 Label=5
+T=14 Label=6
+T=16 Label=7
+T=16 Label=8
+T=38 Label=38
+T=39 Label=44
+T=39 Label=46
+----------Redundant Edges To Be Deleted (Penalty=1)----------
+[T=35 Label=29] -> [T=36 Label=29]
+[T=35 Label=33] -> [T=36 Label=37]
+[T=35 Label=33] -> [T=36 Label=38]
+----------Edges To Be Added (Penalty=1.5)----------
+[T=0 GT_label=2] -> [T=1 GT_label=2]
+[T=13 GT_label=2] -> [T=14 GT_label=2]
+[T=14 GT_label=2] -> [T=15 GT_label=2]
+[T=0 GT_label=3] -> [T=1 GT_label=3]
+[T=15 GT_label=3] -> [T=16 GT_label=3]
+[T=16 GT_label=3] -> [T=17 GT_label=5]
+[T=16 GT_label=3] -> [T=17 GT_label=6]
+[T=36 GT_label=16] -> [T=37 GT_label=16]
+[T=37 GT_label=22] -> [T=38 GT_label=22]
+[T=38 GT_label=22] -> [T=39 GT_label=22]
+[T=34 GT_label=25] -> [T=35 GT_label=25]
+[T=35 GT_label=25] -> [T=36 GT_label=25]
+[T=37 GT_label=25] -> [T=38 GT_label=25]
+[T=38 GT_label=25] -> [T=39 GT_label=25]
+[T=35 GT_label=26] -> [T=36 GT_label=26]
+[T=38 GT_label=27] -> [T=39 GT_label=27]
+[T=38 GT_label=29] -> [T=39 GT_label=29]
+[T=37 GT_label=30] -> [T=38 GT_label=30]
+[T=38 GT_label=30] -> [T=39 GT_label=30]
+[T=35 GT_label=32] -> [T=36 GT_label=32]
+[T=38 GT_label=32] -> [T=39 GT_label=32]
+[T=38 GT_label=33] -> [T=39 GT_label=33]
+[T=35 GT_label=18] -> [T=36 GT_label=34]
+[T=36 GT_label=34] -> [T=37 GT_label=34]
+[T=35 GT_label=17] -> [T=36 GT_label=37]
+[T=36 GT_label=37] -> [T=37 GT_label=37]
+[T=37 GT_label=37] -> [T=38 GT_label=37]
+[T=38 GT_label=37] -> [T=39 GT_label=37]
+[T=37 GT_label=16] -> [T=38 GT_label=38]
+[T=37 GT_label=16] -> [T=38 GT_label=39]
+----------Edges with Wrong Semantics (Penalty=1)----------
+[T=35 Label=20] -> [T=36 Label=20]
+[T=35 Label=21] -> [T=36 Label=21]
+[T=37 Label=29] -> [T=38 Label=44]
+=================================================================================
+TRA measure: 0.945430
