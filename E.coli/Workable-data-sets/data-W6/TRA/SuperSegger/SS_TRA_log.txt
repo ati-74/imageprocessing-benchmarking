@@ -1,0 +1,263 @@
+----------Splitting Operations (Penalty=5)----------
+----------False Negative Vertices (Penalty=10)----------
+T=0 GT_label=2
+T=1 GT_label=2
+T=2 GT_label=2
+T=3 GT_label=2
+T=4 GT_label=2
+T=5 GT_label=2
+T=6 GT_label=2
+T=7 GT_label=2
+T=8 GT_label=2
+T=9 GT_label=2
+T=10 GT_label=2
+T=11 GT_label=2
+T=22 GT_label=3
+T=23 GT_label=3
+T=24 GT_label=3
+T=25 GT_label=3
+T=26 GT_label=4
+T=27 GT_label=4
+T=28 GT_label=4
+T=28 GT_label=5
+T=29 GT_label=4
+T=30 GT_label=8
+T=30 GT_label=9
+T=31 GT_label=8
+T=31 GT_label=9
+T=32 GT_label=9
+T=32 GT_label=11
+T=33 GT_label=6
+T=33 GT_label=9
+T=33 GT_label=11
+T=34 GT_label=9
+T=34 GT_label=10
+T=34 GT_label=11
+T=35 GT_label=7
+T=35 GT_label=10
+T=35 GT_label=11
+T=35 GT_label=13
+T=36 GT_label=7
+T=36 GT_label=10
+T=36 GT_label=11
+T=36 GT_label=13
+T=36 GT_label=15
+T=37 GT_label=10
+T=37 GT_label=11
+T=37 GT_label=13
+T=37 GT_label=14
+T=37 GT_label=15
+T=38 GT_label=11
+T=38 GT_label=13
+T=38 GT_label=14
+T=38 GT_label=16
+T=38 GT_label=18
+T=38 GT_label=21
+T=38 GT_label=22
+T=38 GT_label=23
+T=39 GT_label=13
+T=39 GT_label=14
+T=39 GT_label=20
+T=39 GT_label=23
+T=39 GT_label=25
+T=39 GT_label=26
+----------False Positive Vertices (Penalty=1)----------
+T=0 Label=2
+T=0 Label=3
+T=1 Label=2
+T=1 Label=3
+T=2 Label=2
+T=2 Label=3
+T=3 Label=2
+T=3 Label=3
+T=4 Label=2
+T=4 Label=3
+T=5 Label=2
+T=5 Label=3
+T=6 Label=2
+T=6 Label=3
+T=7 Label=2
+T=7 Label=3
+T=8 Label=2
+T=8 Label=3
+T=9 Label=2
+T=9 Label=3
+T=10 Label=2
+T=10 Label=3
+T=11 Label=2
+T=11 Label=3
+T=22 Label=4
+T=22 Label=5
+T=23 Label=4
+T=23 Label=5
+T=24 Label=4
+T=24 Label=5
+T=25 Label=4
+T=25 Label=5
+T=26 Label=3
+T=27 Label=3
+T=28 Label=4
+T=28 Label=10
+T=28 Label=11
+T=28 Label=12
+T=29 Label=10
+T=29 Label=11
+T=29 Label=12
+T=30 Label=10
+T=30 Label=11
+T=30 Label=15
+T=31 Label=10
+T=31 Label=15
+T=31 Label=16
+T=31 Label=17
+T=32 Label=15
+T=32 Label=16
+T=32 Label=17
+T=33 Label=15
+T=33 Label=16
+T=33 Label=17
+T=33 Label=21
+T=33 Label=22
+T=33 Label=23
+T=34 Label=16
+T=34 Label=17
+T=34 Label=21
+T=34 Label=24
+T=34 Label=25
+T=34 Label=26
+T=34 Label=27
+T=35 Label=17
+T=35 Label=20
+T=35 Label=21
+T=35 Label=26
+T=35 Label=27
+T=35 Label=29
+T=35 Label=30
+T=35 Label=31
+T=35 Label=32
+T=36 Label=17
+T=36 Label=20
+T=36 Label=21
+T=36 Label=26
+T=36 Label=27
+T=36 Label=29
+T=36 Label=30
+T=36 Label=31
+T=36 Label=32
+T=36 Label=33
+T=36 Label=34
+T=37 Label=17
+T=37 Label=26
+T=37 Label=27
+T=37 Label=29
+T=37 Label=30
+T=37 Label=31
+T=37 Label=32
+T=37 Label=33
+T=37 Label=34
+T=37 Label=36
+T=37 Label=37
+T=38 Label=10
+T=38 Label=17
+T=38 Label=29
+T=38 Label=30
+T=38 Label=31
+T=38 Label=32
+T=38 Label=36
+T=38 Label=37
+T=38 Label=41
+T=38 Label=42
+T=39 Label=17
+T=39 Label=29
+T=39 Label=30
+T=39 Label=32
+T=39 Label=34
+T=39 Label=36
+T=39 Label=37
+----------Redundant Edges To Be Deleted (Penalty=1)----------
+----------Edges To Be Added (Penalty=1.5)----------
+[T=0 GT_label=2] -> [T=1 GT_label=2]
+[T=1 GT_label=2] -> [T=2 GT_label=2]
+[T=2 GT_label=2] -> [T=3 GT_label=2]
+[T=3 GT_label=2] -> [T=4 GT_label=2]
+[T=4 GT_label=2] -> [T=5 GT_label=2]
+[T=5 GT_label=2] -> [T=6 GT_label=2]
+[T=6 GT_label=2] -> [T=7 GT_label=2]
+[T=7 GT_label=2] -> [T=8 GT_label=2]
+[T=8 GT_label=2] -> [T=9 GT_label=2]
+[T=9 GT_label=2] -> [T=10 GT_label=2]
+[T=10 GT_label=2] -> [T=11 GT_label=2]
+[T=11 GT_label=2] -> [T=12 GT_label=3]
+[T=21 GT_label=3] -> [T=22 GT_label=3]
+[T=22 GT_label=3] -> [T=23 GT_label=3]
+[T=23 GT_label=3] -> [T=24 GT_label=3]
+[T=24 GT_label=3] -> [T=25 GT_label=3]
+[T=11 GT_label=2] -> [T=12 GT_label=4]
+[T=25 GT_label=4] -> [T=26 GT_label=4]
+[T=26 GT_label=4] -> [T=27 GT_label=4]
+[T=27 GT_label=4] -> [T=28 GT_label=4]
+[T=28 GT_label=4] -> [T=29 GT_label=4]
+[T=25 GT_label=3] -> [T=26 GT_label=5]
+[T=27 GT_label=5] -> [T=28 GT_label=5]
+[T=28 GT_label=5] -> [T=29 GT_label=5]
+[T=25 GT_label=3] -> [T=26 GT_label=6]
+[T=32 GT_label=6] -> [T=33 GT_label=6]
+[T=34 GT_label=7] -> [T=35 GT_label=7]
+[T=35 GT_label=7] -> [T=36 GT_label=7]
+[T=29 GT_label=4] -> [T=30 GT_label=8]
+[T=30 GT_label=8] -> [T=31 GT_label=8]
+[T=29 GT_label=5] -> [T=30 GT_label=9]
+[T=30 GT_label=9] -> [T=31 GT_label=9]
+[T=31 GT_label=9] -> [T=32 GT_label=9]
+[T=32 GT_label=9] -> [T=33 GT_label=9]
+[T=33 GT_label=9] -> [T=34 GT_label=9]
+[T=29 GT_label=4] -> [T=30 GT_label=10]
+[T=33 GT_label=10] -> [T=34 GT_label=10]
+[T=34 GT_label=10] -> [T=35 GT_label=10]
+[T=35 GT_label=10] -> [T=36 GT_label=10]
+[T=36 GT_label=10] -> [T=37 GT_label=10]
+[T=31 GT_label=8] -> [T=32 GT_label=11]
+[T=32 GT_label=11] -> [T=33 GT_label=11]
+[T=33 GT_label=11] -> [T=34 GT_label=11]
+[T=34 GT_label=11] -> [T=35 GT_label=11]
+[T=35 GT_label=11] -> [T=36 GT_label=11]
+[T=36 GT_label=11] -> [T=37 GT_label=11]
+[T=37 GT_label=11] -> [T=38 GT_label=11]
+[T=31 GT_label=8] -> [T=32 GT_label=12]
+[T=33 GT_label=6] -> [T=34 GT_label=13]
+[T=34 GT_label=13] -> [T=35 GT_label=13]
+[T=35 GT_label=13] -> [T=36 GT_label=13]
+[T=36 GT_label=13] -> [T=37 GT_label=13]
+[T=37 GT_label=13] -> [T=38 GT_label=13]
+[T=38 GT_label=13] -> [T=39 GT_label=13]
+[T=33 GT_label=6] -> [T=34 GT_label=14]
+[T=36 GT_label=14] -> [T=37 GT_label=14]
+[T=37 GT_label=14] -> [T=38 GT_label=14]
+[T=38 GT_label=14] -> [T=39 GT_label=14]
+[T=34 GT_label=9] -> [T=35 GT_label=15]
+[T=35 GT_label=15] -> [T=36 GT_label=15]
+[T=36 GT_label=15] -> [T=37 GT_label=15]
+[T=34 GT_label=9] -> [T=35 GT_label=16]
+[T=37 GT_label=16] -> [T=38 GT_label=16]
+[T=36 GT_label=7] -> [T=37 GT_label=17]
+[T=36 GT_label=7] -> [T=37 GT_label=18]
+[T=37 GT_label=18] -> [T=38 GT_label=18]
+[T=38 GT_label=18] -> [T=39 GT_label=18]
+[T=37 GT_label=15] -> [T=38 GT_label=19]
+[T=37 GT_label=15] -> [T=38 GT_label=20]
+[T=38 GT_label=20] -> [T=39 GT_label=20]
+[T=37 GT_label=12] -> [T=38 GT_label=21]
+[T=38 GT_label=21] -> [T=39 GT_label=21]
+[T=37 GT_label=10] -> [T=38 GT_label=22]
+[T=38 GT_label=22] -> [T=39 GT_label=22]
+[T=37 GT_label=12] -> [T=38 GT_label=23]
+[T=38 GT_label=23] -> [T=39 GT_label=23]
+[T=37 GT_label=10] -> [T=38 GT_label=24]
+[T=38 GT_label=11] -> [T=39 GT_label=25]
+[T=38 GT_label=11] -> [T=39 GT_label=26]
+[T=38 GT_label=16] -> [T=39 GT_label=27]
+[T=38 GT_label=16] -> [T=39 GT_label=28]
+----------Edges with Wrong Semantics (Penalty=1)----------
+[T=32 Label=14] -> [T=33 Label=20]
+=================================================================================
+TRA measure: 0.443126
