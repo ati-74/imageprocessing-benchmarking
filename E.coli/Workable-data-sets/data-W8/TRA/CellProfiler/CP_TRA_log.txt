@@ -1,0 +1,35 @@
+----------Splitting Operations (Penalty=5)----------
+T=39 Label=43
+----------False Negative Vertices (Penalty=10)----------
+T=19 GT_label=3
+T=20 GT_label=3
+T=38 GT_label=36
+T=38 GT_label=38
+T=38 GT_label=40
+----------False Positive Vertices (Penalty=1)----------
+T=19 Label=7
+T=19 Label=8
+T=20 Label=7
+T=20 Label=8
+----------Redundant Edges To Be Deleted (Penalty=1)----------
+[T=38 Label=21] -> [T=39 Label=41]
+----------Edges To Be Added (Penalty=1.5)----------
+[T=18 GT_label=3] -> [T=19 GT_label=3]
+[T=19 GT_label=3] -> [T=20 GT_label=3]
+[T=20 GT_label=3] -> [T=21 GT_label=7]
+[T=20 GT_label=3] -> [T=21 GT_label=8]
+[T=38 GT_label=21] -> [T=39 GT_label=21]
+[T=37 GT_label=20] -> [T=38 GT_label=36]
+[T=38 GT_label=36] -> [T=39 GT_label=36]
+[T=37 GT_label=19] -> [T=38 GT_label=37]
+[T=37 GT_label=20] -> [T=38 GT_label=38]
+[T=38 GT_label=38] -> [T=39 GT_label=38]
+[T=37 GT_label=17] -> [T=38 GT_label=40]
+[T=38 GT_label=40] -> [T=39 GT_label=40]
+[T=38 GT_label=31] -> [T=39 GT_label=46]
+----------Edges with Wrong Semantics (Penalty=1)----------
+[T=37 Label=17] -> [T=38 Label=17]
+[T=37 Label=19] -> [T=38 Label=19]
+[T=38 Label=31] -> [T=39 Label=31]
+=================================================================================
+TRA measure: 0.970092
