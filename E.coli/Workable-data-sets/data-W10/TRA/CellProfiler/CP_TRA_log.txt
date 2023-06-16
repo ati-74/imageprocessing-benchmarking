@@ -1,0 +1,81 @@
+----------Splitting Operations (Penalty=5)----------
+T=34 Label=2
+T=35 Label=2
+T=56 Label=13
+T=58 Label=18
+T=72 Label=33
+----------False Negative Vertices (Penalty=10)----------
+T=56 GT_label=15
+T=64 GT_label=18
+T=66 GT_label=11
+T=69 GT_label=11
+T=70 GT_label=11
+T=72 GT_label=44
+----------False Positive Vertices (Penalty=1)----------
+T=56 Label=39
+T=56 Label=40
+T=64 Label=47
+T=64 Label=48
+T=66 Label=51
+T=66 Label=52
+T=69 Label=53
+T=69 Label=54
+T=70 Label=53
+T=70 Label=54
+----------Redundant Edges To Be Deleted (Penalty=1)----------
+[T=42 Label=9] -> [T=43 Label=9]
+[T=42 Label=10] -> [T=43 Label=10]
+[T=42 Label=13] -> [T=43 Label=13]
+[T=42 Label=17] -> [T=43 Label=17]
+[T=42 Label=18] -> [T=43 Label=18]
+[T=42 Label=11] -> [T=43 Label=24]
+[T=42 Label=11] -> [T=43 Label=25]
+[T=53 Label=22] -> [T=54 Label=32]
+[T=64 Label=17] -> [T=65 Label=50]
+----------Edges To Be Added (Penalty=1.5)----------
+[T=42 GT_label=9] -> [T=43 GT_label=9]
+[T=42 GT_label=10] -> [T=43 GT_label=10]
+[T=42 GT_label=11] -> [T=43 GT_label=11]
+[T=65 GT_label=11] -> [T=66 GT_label=11]
+[T=66 GT_label=11] -> [T=67 GT_label=11]
+[T=68 GT_label=11] -> [T=69 GT_label=11]
+[T=69 GT_label=11] -> [T=70 GT_label=11]
+[T=70 GT_label=11] -> [T=71 GT_label=11]
+[T=42 GT_label=12] -> [T=43 GT_label=12]
+[T=42 GT_label=13] -> [T=43 GT_label=13]
+[T=42 GT_label=14] -> [T=43 GT_label=14]
+[T=55 GT_label=15] -> [T=56 GT_label=15]
+[T=33 GT_label=2] -> [T=34 GT_label=17]
+[T=34 GT_label=17] -> [T=35 GT_label=17]
+[T=35 GT_label=17] -> [T=36 GT_label=17]
+[T=42 GT_label=17] -> [T=43 GT_label=17]
+[T=33 GT_label=2] -> [T=34 GT_label=18]
+[T=34 GT_label=18] -> [T=35 GT_label=18]
+[T=35 GT_label=18] -> [T=36 GT_label=18]
+[T=42 GT_label=18] -> [T=43 GT_label=18]
+[T=53 GT_label=18] -> [T=54 GT_label=18]
+[T=63 GT_label=18] -> [T=64 GT_label=18]
+[T=42 GT_label=19] -> [T=43 GT_label=19]
+[T=42 GT_label=20] -> [T=43 GT_label=20]
+[T=64 GT_label=21] -> [T=65 GT_label=21]
+[T=53 GT_label=10] -> [T=54 GT_label=26]
+[T=55 GT_label=14] -> [T=56 GT_label=33]
+[T=56 GT_label=33] -> [T=57 GT_label=33]
+[T=55 GT_label=14] -> [T=56 GT_label=34]
+[T=56 GT_label=34] -> [T=57 GT_label=34]
+[T=56 GT_label=15] -> [T=57 GT_label=35]
+[T=56 GT_label=15] -> [T=57 GT_label=36]
+[T=57 GT_label=19] -> [T=58 GT_label=37]
+[T=58 GT_label=37] -> [T=59 GT_label=37]
+[T=57 GT_label=19] -> [T=58 GT_label=38]
+[T=58 GT_label=38] -> [T=59 GT_label=38]
+[T=64 GT_label=18] -> [T=65 GT_label=41]
+[T=64 GT_label=18] -> [T=65 GT_label=42]
+[T=71 GT_label=37] -> [T=72 GT_label=44]
+[T=71 GT_label=27] -> [T=72 GT_label=47]
+[T=71 GT_label=27] -> [T=72 GT_label=48]
+----------Edges with Wrong Semantics (Penalty=1)----------
+[T=71 Label=45] -> [T=72 Label=45]
+[T=64 Label=17] -> [T=65 Label=49]
+=================================================================================
+TRA measure: 0.983011
