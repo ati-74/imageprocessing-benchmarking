@@ -16,7 +16,7 @@ def average_growth_rate(division_length, birth_length, t):
     is zero
     """
     try:
-        elongation_rate = round((math.log(division_length) - math.log(birth_length)) / t, 3)
+        elongation_rate = round((division_length - birth_length) / t, 3)
     except:
         elongation_rate = np.nan
 

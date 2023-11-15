@@ -9,7 +9,7 @@ SS_output_path_matrix = ["baby20/SuperSegger"];
 output_directory_matrix = ["baby20/SuperSegger/results"];
 
 % Specify the interval time for each dataset
-interval_time_list_array = [1.5];
+interval_time_list_array = [5];
 
 % Get the total number of datasets
 num_SS_output_path = length(SS_output_path_matrix);

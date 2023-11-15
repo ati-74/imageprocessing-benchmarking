@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
     # A dictionary containing paths to output CSV files from CellProfiler and their associated interval times.
     cp_output_path_interval_time = {
-        "e.coli_microfluidic/CP/IdentifyPrimaryObjects.csv": 1.5,
+        "e.coli_microfluidic/CP/IdentifyPrimaryObjects.csv": 5,
     }
 
     # List of directories where the processed results will be saved.

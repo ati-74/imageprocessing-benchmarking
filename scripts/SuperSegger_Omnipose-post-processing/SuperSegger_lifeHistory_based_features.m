@@ -27,7 +27,7 @@ birthLength = data(:, 10);           % Birth length of each bacterium
 lastLength = data(:, 11);            % Final length of each bacterium
 
 % Calculate growth rate for each bacterium
-growth_rate = (log(lastLength) - log(birthLength)) ./ (lifeHistory * intervalTime);
+growth_rate = (lastLength - birthLength) ./ (lifeHistory * intervalTime);
 
 % Create a table to store life-history based features
 T = table(cell_life_id_value, growth_rate, birthLength, lifeHistory, transpose(AverageVelocity), ...

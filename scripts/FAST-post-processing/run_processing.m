@@ -9,7 +9,7 @@ FAST_output_path_matrix = ["xantho/FAST"];
 output_directory_matrix = ["xantho/FAST/results/"];
 
 % Specify the interval time (unit: minute) and number of timesteps for each dataset
-interval_time_list_array = [1.5];
+interval_time_list_array = [5];
 num_timesteps_array = [27];
 
 % Get the total number of datasets

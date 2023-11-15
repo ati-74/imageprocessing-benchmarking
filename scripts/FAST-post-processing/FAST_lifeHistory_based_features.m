@@ -37,7 +37,7 @@ for i = 1:cell_life_id_value(end)
     end
     
     if lifeHistory(i) >= 2
-        growth_rate(i) = (log(lastLength(i)) - log(birthLength(i))) / (lifeHistory(i) * intervalTime);
+        growth_rate(i) = (lastLength(i) - birthLength(i)) / (lifeHistory(i) * intervalTime);
     end
 end
 

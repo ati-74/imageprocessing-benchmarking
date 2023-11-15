@@ -145,7 +145,7 @@ def average_growth_rate(division_length, birth_length, t):
     - elongation_rate float The average elongation rate, rounded to three decimal places.
     """
 
-    elongation_rate = round((math.log(division_length) - math.log(birth_length)) / t, 3)
+    elongation_rate = round((division_length - birth_length) / t, 3)
 
     return elongation_rate
 

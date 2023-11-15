@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
     # Define input directories and their associated time intervals
     delta_output_path_interval_time = {
-        "DeLTA/input/": 1.5,
+        "DeLTA/input/": 5,
     }
     # List of output directories corresponding to the input directories
     output_directory_list = [
