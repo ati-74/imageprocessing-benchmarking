@@ -238,29 +238,29 @@ if __name__ == "__main__":
     # dataset : paths
     csv_files_path = {
         'baby_17': [
-            "G:/new FASTS/baby17++/CP/results/CP_bacteria_feature_analysis.csv",
-            "G:/new FASTS/baby17++/CP_Omnipose/results/CP_Omnipose_bacteria_feature_analysis.csv",
-            "G:/new FASTS/baby17++/DeLTA/results/DeLTA_bacteria_feature_analysis.csv",
-            "G:/new FASTS/baby17++/FAST/results/FAST_bacteria_feature_analysis.csv",
-            "G:/new FASTS/baby17++/SuperSegger/results/SuperSegger_bacteria_feature_analysis.csv",
+            "baby17++/CP/results/CP_bacteria_feature_analysis.csv",
+            "baby17++/CP_Omnipose/results/CP_Omnipose_bacteria_feature_analysis.csv",
+            "baby17++/DeLTA/results/DeLTA_bacteria_feature_analysis.csv",
+            "baby17++/FAST/results/FAST_bacteria_feature_analysis.csv",
+            "baby17++/SuperSegger/results/SuperSegger_bacteria_feature_analysis.csv",
         ],
     }
 
     raw_img_dir = [
-        'G:/ecoli babies/done/baby17++/raw/',
+        'baby17++/raw/',
     ]
 
     output_dir = [
-        "G:/new FASTS/baby17++/",
+        "baby17++/",
     ]
 
     prefix_raw_name = [
         'baby17',
     ]
 
-    colors = ["#FFD700", '#FF7F50', '#40E0D0', '#DAA520', '#32CD32', 'red']
+    colors = ["#FFD700", '#FF7F50', '#40E0D0', '#DAA520', '#32CD32']
 
-    tools = ['CP', 'CP_Omnipose', 'DeLTA', 'FAST', 'SuperSegger', 'reference-mask']
+    tools = ['CP', 'CP_Omnipose', 'DeLTA', 'FAST', 'SuperSegger']
 
     # life history based distribution
     tracking_bac(raw_img_dir, csv_files_path, output_dir, colors, tools, prefix_raw_name)

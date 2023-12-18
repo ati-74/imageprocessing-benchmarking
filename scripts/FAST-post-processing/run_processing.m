@@ -10,7 +10,6 @@ output_directory_matrix = ["xantho/FAST/results/"];
 
 % Specify the interval time (unit: minute) and number of timesteps for each dataset
 interval_time_list_array = [5];
-num_timesteps_array = [27];
 
 % Get the total number of datasets
 num_FAST_output_path = length(FAST_output_path_matrix);
@@ -21,7 +20,6 @@ for i = 1:num_FAST_output_path
     % Get the FAST output path, output directory, number of timesteps, and interval time for current dataset
     FAST_output_path = FAST_output_path_matrix(i);
     output_directory = output_directory_matrix(i);
-    num_time_step = num_timesteps_array(i);
     intervalTime = interval_time_list_array(i);
 
     % Perform lineage-based analysis to assign labels to each bacterial family tree
