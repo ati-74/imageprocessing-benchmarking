@@ -17,7 +17,7 @@ bacterium in a different color, in TIFF format and as an array in an NPY file). 
 stored as a TIFF image.</p></br>
 
 
-<p align="justify"><b><i><a href="DeLTA and SS-O modified code/SuperSegger-O-modified.zip">SuperSegger-o-modified.zip</a>:</b></i> Removes bacteria that touch the page border. The segmentation output is
+<p align="justify"><b><i><a href="https://github.com/Ati-74/supersegger-omnipose">SuperSegger-o-modified</a>:</b></i> Removes bacteria that touch the page border. The segmentation output is
 stored in black and white (BW) as a TIFF file and in color (each bacterium in a unique color) as a .mat file.
 Rename files: For image input into DeLTA or SS, a specific pattern is required. These scripts adjust the
 file names of raw images to align with the desired pattern for these tools, enabling their use in DeLTA
